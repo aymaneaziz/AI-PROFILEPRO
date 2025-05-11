@@ -1,1 +1,3 @@
-# PFE STAGE : ai resume builder
+# PFE STAGE : 
+
+Profolio (Création automatique de CV et de portfolio personnalisé)
