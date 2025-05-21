@@ -1,4 +1,4 @@
-# PFE STAGE : PortfolioMaker
+# PFE STAGE : ProfilePro
 
-Profolio (Création automatique de CV et de portfolio personnalisé)
+Profolio (Création  de CV et de portfolio personnalisé)
 
