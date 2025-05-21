@@ -1,4 +1,4 @@
-# PFE STAGE : ProfilePro
+# PFE STAGE SEOMANIAK : ProfilePro
 
 Profolio (Création  de CV et de portfolio personnalisé)
 
@@ -7,3 +7,4 @@ Profolio (Création  de CV et de portfolio personnalisé)
 
 ## 🎥 Démo  
 https://drive.google.com/file/d/1zmhtWKffGEocCudshEZty6l73QLWxPWc/view?usp=sharing
+
