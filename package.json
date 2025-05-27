@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@smastrom/react-rating": "^1.5.0",
+    "react-web-share": "^2.0.2"
+  }
+}

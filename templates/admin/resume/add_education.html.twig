@@ -1,0 +1,117 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block title %}Ajouter une formation - {{ resume.title }}{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h1 class="mb-0">
+                <i class="fas fa-graduation-cap me-3"></i>Ajouter une formation
+            </h1>
+            <p class="mb-0 mt-2 opacity-75">CV de {{ resume.firstName }} {{ resume.lastName }}</p>
+        </div>
+        <a href="{{ path('admin_resume_show', {'id': resume.id}) }}" class="btn btn-light">
+            <i class="fas fa-arrow-left me-2"></i>Retour au CV
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-plus me-2"></i>Nouvelle formation
+                </h5>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="universityName" class="form-label fw-bold">Nom de l'université</label>
+                                <input type="text" class="form-control" id="universityName" name="universityName" 
+                                       placeholder="Ex: Université de Paris" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="degree" class="form-label fw-bold">Diplôme</label>
+                                <input type="text" class="form-control" id="degree" name="degree" 
+                                       placeholder="Ex: Master, Licence, BTS" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="major" class="form-label fw-bold">Spécialité</label>
+                        <input type="text" class="form-control" id="major" name="major" 
+                               placeholder="Ex: Informatique, Commerce, Droit" required>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="startDate" class="form-label fw-bold">Date de début</label>
+                                <input type="date" class="form-control" id="startDate" name="startDate" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="endDate" class="form-label fw-bold">Date de fin</label>
+                                <input type="date" class="form-control" id="endDate" name="endDate" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="description" class="form-label fw-bold">Description (optionnel)</label>
+                        <textarea class="form-control" id="description" name="description" rows="4" 
+                                  placeholder="Décrivez vos matières principales, projets réalisés, mentions obtenues..."></textarea>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a href="{{ path('admin_resume_show', {'id': resume.id}) }}" class="btn btn-secondary">
+                            <i class="fas fa-times me-2"></i>Annuler
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-2"></i>Ajouter la formation
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h6 class="card-title mb-0">
+                    <i class="fas fa-info-circle me-2"></i>Conseils
+                </h6>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled">
+                    <li class="mb-2">
+                        <i class="fas fa-check text-success me-2"></i>
+                        Utilisez le nom complet de l'établissement
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-check text-success me-2"></i>
+                        Précisez le niveau exact du diplôme
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-check text-success me-2"></i>
+                        Mentionnez les spécialisations importantes
+                    </li>
+                    <li class="mb-0">
+                        <i class="fas fa-check text-success me-2"></i>
+                        Ajoutez les mentions ou projets notables
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

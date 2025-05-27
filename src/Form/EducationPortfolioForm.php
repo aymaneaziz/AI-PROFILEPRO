@@ -1,0 +1,35 @@
+<?php
+
+namespace App\Form;
+
+use App\Entity\EducationPortfolio;
+use App\Entity\UserPortfolio;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
+class EducationPortfolioForm extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $builder
+            ->add('degree')
+            ->add('institution')
+            ->add('startDate')
+            ->add('endDate')
+            ->add('current')
+            ->add('userPortfolio', EntityType::class, [
+                'class' => UserPortfolio::class,
+                'choice_label' => 'id',
+            ])
+        ;
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class' => EducationPortfolio::class,
+        ]);
+    }
+}

@@ -1,0 +1,52 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block title %}Modifier la Compétence{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h1 class="mb-0">
+                <i class="fas fa-star me-3"></i>Modifier la Compétence
+            </h1>
+            <p class="mb-0 mt-2 opacity-75">Modifier la compétence "{{ skill.name }}" du portfolio de {{ portfolio.fullName }}</p>
+        </div>
+        <div class="btn-group">
+            <a href="{{ path('admin_portfolio_show', {'id': portfolio.id}) }}" class="btn btn-light">
+                <i class="fas fa-arrow-left me-2"></i>Retour
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <form method="post">
+            <div class="mb-3">
+                <label for="name" class="form-label">Nom de la compétence</label>
+                <input type="text" class="form-control" id="name" name="name" value="{{ skill.name }}" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="level" class="form-label">Niveau</label>
+                <select class="form-select" id="level" name="level" required>
+                    <option value="">Sélectionner un niveau</option>
+                    <option value="Débutant" {% if skill.level == 'Débutant' %}selected{% endif %}>Débutant</option>
+                    <option value="Intermédiaire" {% if skill.level == 'Intermédiaire' %}selected{% endif %}>Intermédiaire</option>
+                    <option value="Avancé" {% if skill.level == 'Avancé' %}selected{% endif %}>Avancé</option>
+                    <option value="Expert" {% if skill.level == 'Expert' %}selected{% endif %}>Expert</option>
+                </select>
+            </div>
+
+            <div class="d-flex justify-content-end gap-2">
+                <a href="{{ path('admin_portfolio_show', {'id': portfolio.id}) }}" class="btn btn-light">
+                    <i class="fas fa-times me-2"></i>Annuler
+                </a>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save me-2"></i>Enregistrer
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %} 

@@ -1,0 +1,247 @@
+<!-- Modal d'ajout de compétence -->
+<div class="modal fade" id="newSkillModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Ajouter une compétence</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form action="{{ path('admin_portfolio_skills_new', {'id': portfolio.id}) }}" method="post">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="skillName" class="form-label">Nom de la compétence</label>
+                        <input type="text" class="form-control" id="skillName" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="skillLevel" class="form-label">Niveau</label>
+                        <select class="form-select" id="skillLevel" name="level" required>
+                            <option value="1">Débutant</option>
+                            <option value="2">Intermédiaire</option>
+                            <option value="3">Avancé</option>
+                            <option value="4">Expert</option>
+                            <option value="5">Maitre</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Annuler</button>
+                    <button type="submit" class="btn btn-primary">Ajouter</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal d'ajout d'expérience -->
+<div class="modal fade" id="newExperienceModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Ajouter une expérience</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form action="{{ path('admin_portfolio_experience_new', {'id': portfolio.id}) }}" method="post">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="experienceTitle" class="form-label">Titre du poste</label>
+                        <input type="text" class="form-control" id="experienceTitle" name="title" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="experienceCompany" class="form-label">Entreprise</label>
+                        <input type="text" class="form-control" id="experienceCompany" name="company" required>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="experienceStartDate" class="form-label">Date de début</label>
+                                <input type="date" class="form-control" id="experienceStartDate" name="startDate" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="experienceEndDate" class="form-label">Date de fin</label>
+                                <input type="date" class="form-control" id="experienceEndDate" name="endDate">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="experienceCurrent" name="current">
+                            <label class="form-check-label" for="experienceCurrent">
+                                Poste actuel
+                            </label>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="experienceDescription" class="form-label">Description</label>
+                        <textarea class="form-control" id="experienceDescription" name="description" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Annuler</button>
+                    <button type="submit" class="btn btn-primary">Ajouter</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal d'ajout de formation -->
+<div class="modal fade" id="newEducationModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Ajouter une formation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form action="{{ path('admin_portfolio_education_new', {'id': portfolio.id}) }}" method="post">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="educationDegree" class="form-label">Diplôme</label>
+                        <input type="text" class="form-control" id="educationDegree" name="degree" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="educationInstitution" class="form-label">Établissement</label>
+                        <input type="text" class="form-control" id="educationInstitution" name="institution" required>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="educationStartDate" class="form-label">Date de début</label>
+                                <input type="date" class="form-control" id="educationStartDate" name="startDate" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="educationEndDate" class="form-label">Date de fin</label>
+                                <input type="date" class="form-control" id="educationEndDate" name="endDate">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="educationCurrent" name="current">
+                            <label class="form-check-label" for="educationCurrent">
+                                Formation en cours
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Annuler</button>
+                    <button type="submit" class="btn btn-primary">Ajouter</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal d'ajout de projet -->
+<div class="modal fade" id="newProjectModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Ajouter un projet</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form action="{{ path('admin_portfolio_project_new', {'id': portfolio.id}) }}" method="post">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="projectTitle" class="form-label">Titre du projet</label>
+                        <input type="text" class="form-control" id="projectTitle" name="title" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="projectTechnologies" class="form-label">Technologies utilisées</label>
+                        <input type="text" class="form-control" id="projectTechnologies" name="technologies">
+                    </div>
+                    <div class="mb-3">
+                        <label for="projectDescription" class="form-label">Description</label>
+                        <textarea class="form-control" id="projectDescription" name="description" rows="3"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="projectImage" class="form-label">URL de l'image</label>
+                        <input type="url" class="form-control" id="projectImage" name="image">
+                    </div>
+                    <div class="mb-3">
+                        <label for="projectUrl" class="form-label">URL du projet</label>
+                        <input type="url" class="form-control" id="projectUrl" name="url">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Annuler</button>
+                    <button type="submit" class="btn btn-primary">Ajouter</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal d'ajout de certificat -->
+<div class="modal fade" id="newCertificateModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Ajouter un certificat</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form action="{{ path('admin_portfolio_certificate_new', {'id': portfolio.id}) }}" method="post">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="certificateName" class="form-label">Nom du certificat</label>
+                        <input type="text" class="form-control" id="certificateName" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="certificateIssuer" class="form-label">Organisme émetteur</label>
+                        <input type="text" class="form-control" id="certificateIssuer" name="issuer" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="certificateDate" class="form-label">Date d'obtention</label>
+                        <input type="date" class="form-control" id="certificateDate" name="date" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="certificateUrl" class="form-label">URL du certificat</label>
+                        <input type="url" class="form-control" id="certificateUrl" name="url">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Annuler</button>
+                    <button type="submit" class="btn btn-primary">Ajouter</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal d'ajout de lien social -->
+<div class="modal fade" id="newSocialModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Ajouter un lien social</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form action="{{ path('admin_portfolio_social_new', {'id': portfolio.id}) }}" method="post">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="socialPlatform" class="form-label">Plateforme</label>
+                        <select class="form-select" id="socialPlatform" name="platform" required>
+                            <option value="LinkedIn">LinkedIn</option>
+                            <option value="GitHub">GitHub</option>
+                            <option value="Facebook">Facebook</option>
+                            <option value="Instagram">Instagram</option>
+                            <option value="Autre">Autre</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="socialUrl" class="form-label">URL du profil</label>
+                        <input type="url" class="form-control" id="socialUrl" name="url" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Annuler</button>
+                    <button type="submit" class="btn btn-primary">Ajouter</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div> 

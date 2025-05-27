@@ -1,0 +1,84 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block title %}Ajouter une compétence - {{ resume.title }}{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h1 class="mb-0">
+                <i class="fas fa-lightbulb me-3"></i>Ajouter une compétence
+            </h1>
+            <p class="mb-0 mt-2 opacity-75">CV de {{ resume.firstName }} {{ resume.lastName }}</p>
+        </div>
+        <a href="{{ path('admin_resume_show', {'id': resume.id}) }}" class="btn btn-light">
+            <i class="fas fa-arrow-left me-2"></i>Retour au CV
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-plus me-2"></i>Nouvelle compétence
+                </h5>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    <div class="mb-3">
+                        <label for="name" class="form-label fw-bold">Nom de la compétence</label>
+                        <input type="text" class="form-control" id="name" name="name"
+                               placeholder="Ex: HTML, Communication, Leadership" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="rating" class="form-label fw-bold">Niveau (1 à 5)</label>
+                        <input type="number" class="form-control" id="rating" name="rating" min="1" max="5" required>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a href="{{ path('admin_resume_show', {'id': resume.id}) }}" class="btn btn-secondary">
+                            <i class="fas fa-times me-2"></i>Annuler
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-2"></i>Ajouter la compétence
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h6 class="card-title mb-0">
+                    <i class="fas fa-info-circle me-2"></i>Conseils
+                </h6>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled">
+                    <li class="mb-2">
+                        <i class="fas fa-check text-success me-2"></i>
+                        Entrez des compétences spécifiques et pertinentes
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-check text-success me-2"></i>
+                        Utilisez une échelle de 1 (débutant) à 5 (expert)
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-check text-success me-2"></i>
+                        Soyez honnête sur votre niveau
+                    </li>
+                    <li class="mb-0">
+                        <i class="fas fa-check text-success me-2"></i>
+                        Ne pas ajouter trop de compétences générales
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

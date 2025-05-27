@@ -1,0 +1,64 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block title %}Modifier la compétence - Admin{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h1 class="mb-0">
+                <i class="fas fa-star me-3"></i>Modifier la compétence
+            </h1>
+            <p class="mb-0 mt-2 opacity-75">Modifier les informations de la compétence pour {{ resume.firstName }} {{ resume.lastName }}</p>
+        </div>
+        <div class="btn-group">
+            <a href="{{ path('admin_resume_show', {'id': resume.id}) }}" class="btn btn-light">
+                <i class="fas fa-arrow-left me-2"></i>Retour
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-star me-2"></i>Informations de la compétence
+                </h5>
+            </div>
+            <div class="card-body">
+                <form method="post" class="needs-validation" novalidate>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Nom de la compétence</label>
+                                <input type="text" class="form-control" id="name" name="name" 
+                                       value="{{ skill.name }}" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="rating" class="form-label">Niveau (1-5)</label>
+                                <input type="number" class="form-control" id="rating" name="rating" 
+                                       value="{{ skill.rating }}" min="1" max="5" required>
+                                <div class="form-text">Évaluez votre niveau de maîtrise de 1 à 5</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-end gap-2">
+                        <a href="{{ path('admin_resume_show', {'id': resume.id}) }}" class="btn btn-light">
+                            <i class="fas fa-times me-2"></i>Annuler
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-2"></i>Enregistrer les modifications
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

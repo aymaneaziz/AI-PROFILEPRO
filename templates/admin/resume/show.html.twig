@@ -1,0 +1,381 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block title %}{{ resume.title }} - Détails CV{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h1 class="mb-0">
+                <i class="fas fa-file-alt me-3"></i>{{ resume.title }}
+            </h1>
+            <p class="mb-0 mt-2 opacity-75">Détails du CV de {{ resume.firstName }} {{ resume.lastName }}</p>
+        </div>
+        <div class="btn-group">
+            <a href="{{ path('admin_resume_edit', {'id': resume.id}) }}" class="btn btn-primary">
+                <i class="fas fa-edit me-2"></i>Modifier
+            </a>
+            <a href="{{ path('admin_resume_index') }}" class="btn btn-light">
+                <i class="fas fa-arrow-left me-2"></i>Retour
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Informations personnelles -->
+<div class="row">
+    <div class="col-md-8">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-user me-2"></i>Informations personnelles
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>Prénom :</strong> {{ resume.firstName }}</p>
+                        <p><strong>Nom :</strong> {{ resume.lastName }}</p>
+                        <p><strong>Titre du poste :</strong> <span class="badge bg-primary">{{ resume.jobTitle }}</span></p>
+                        <p><strong>Email :</strong> <a href="mailto:{{ resume.email }}">{{ resume.email }}</a></p>
+                        <p><strong>Téléphone :</strong> {{ resume.phone }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Adresse :</strong> {{ resume.address }}</p>
+                        <p><strong>Nom d'utilisateur :</strong> {{ resume.userName }}</p>
+                        <p><strong>Email utilisateur :</strong> {{ resume.userEmail }}</p>
+                        <p><strong>ID du CV :</strong> <span class="badge bg-info">{{ resume.resumeID }}</span></p>
+                        <p><strong>Couleur du thème :</strong> 
+                            <span class="badge" style="background-color: {{ resume.themeColor }}; color: white;">{{ resume.themeColor }}</span>
+                        </p>
+                    </div>
+                </div>
+                
+                {% if resume.summery %}
+                <div class="mt-3">
+                    <h6><strong>Résumé :</strong></h6>
+                    <div class="bg-light p-3 rounded">
+                        {{ resume.summery|nl2br }}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-chart-pie me-2"></i>Statistiques
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <small class="text-muted">Formations</small>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="h4 mb-0">{{ resume.education|length }}</span>
+                        <i class="fas fa-graduation-cap text-success"></i>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <small class="text-muted">Expériences</small>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="h4 mb-0">{{ resume.experience|length }}</span>
+                        <i class="fas fa-briefcase text-info"></i>
+                    </div>
+                </div>
+                <div class="mb-0">
+                    <small class="text-muted">Compétences</small>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="h4 mb-0">{{ resume.skills|length }}</span>
+                        <i class="fas fa-star text-warning"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Formation -->
+<div class="card mb-4">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="card-title mb-0">
+            <i class="fas fa-graduation-cap me-2"></i>Formation ({{ resume.education|length }})
+        </h5>
+        <a href="{{ path('admin_resume_education_new', {'id': resume.id}) }}" class="btn btn-primary btn-sm">
+            <i class="fas fa-plus me-2"></i>Ajouter
+        </a>
+    </div>
+    <div class="card-body">
+        {% if resume.education is empty %}
+            <div class="text-center py-4">
+                <i class="fas fa-graduation-cap fa-3x text-muted mb-3"></i>
+                <p class="text-muted">Aucune formation ajoutée</p>
+                <a href="{{ path('admin_resume_education_new', {'id': resume.id}) }}" class="btn btn-primary">
+                    <i class="fas fa-plus me-2"></i>Ajouter une formation
+                </a>
+            </div>
+        {% else %}
+            <div class="row">
+                {% for education in resume.education %}
+                    <div class="col-md-6 mb-3">
+                        <div class="border rounded p-3 h-100 position-relative">
+                            <div class="position-absolute top-0 end-0 p-3">
+                                <div class="btn-group">
+                                    <a href="{{ path('admin_resume_education_edit', {'id': resume.id, 'educationId': education.id}) }}" 
+                                       class="btn btn-sm btn-light" title="Modifier">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <button type="button" 
+                                            class="btn btn-sm btn-light" 
+                                            data-bs-toggle="modal" 
+                                            data-bs-target="#deleteEducationModal{{ education.id }}"
+                                            title="Supprimer">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <h6 class="text-primary">{{ education.degree }} en {{ education.major }}</h6>
+                            <p class="mb-1"><strong>{{ education.universityName }}</strong></p>
+                            <p class="text-muted mb-2">
+                                <i class="fas fa-calendar me-1"></i>
+                                {{ education.startDate|date('d/m/Y') }} - {{ education.endDate|date('d/m/Y') }}
+                            </p>
+                            {% if education.description %}
+                                <p class="mb-0 small">{{ education.description }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Expérience -->
+<div class="card mb-4">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="card-title mb-0">
+            <i class="fas fa-briefcase me-2"></i>Expérience professionnelle ({{ resume.experience|length }})
+        </h5>
+        <a href="{{ path('admin_resume_experience_new', {'id': resume.id}) }}" class="btn btn-primary btn-sm">
+            <i class="fas fa-plus me-2"></i>Ajouter
+        </a>
+    </div>
+    <div class="card-body">
+        {% if resume.experience is empty %}
+            <div class="text-center py-4">
+                <i class="fas fa-briefcase fa-3x text-muted mb-3"></i>
+                <p class="text-muted">Aucune expérience ajoutée</p>
+                <a href="{{ path('admin_resume_experience_new', {'id': resume.id}) }}" class="btn btn-primary">
+                    <i class="fas fa-plus me-2"></i>Ajouter une expérience
+                </a>
+            </div>
+        {% else %}
+            <div class="timeline">
+                {% for experience in resume.experience %}
+                    <div class="border-left border-primary ps-4 pb-4 mb-3 position-relative">
+                        <div class="position-absolute bg-primary rounded-circle" 
+                             style="width: 12px; height: 12px; left: -6px; top: 5px;"></div>
+                        <div class="position-absolute top-0 end-0">
+                            <div class="btn-group">
+                                <a href="{{ path('admin_resume_experience_edit', {'id': resume.id, 'experienceId': experience.id}) }}" 
+                                   class="btn btn-sm btn-light" title="Modifier">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <button type="button" 
+                                        class="btn btn-sm btn-light" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#deleteExperienceModal{{ experience.id }}"
+                                        title="Supprimer">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <h6 class="text-primary mb-1">{{ experience.title }}</h6>
+                        <p class="mb-1"><strong>{{ experience.companyName }}</strong></p>
+                        <p class="text-muted mb-2">
+                            <i class="fas fa-map-marker-alt me-1"></i>{{ experience.city }}, {{ experience.state }}
+                            <span class="ms-3">
+                                <i class="fas fa-calendar me-1"></i>
+                                {{ experience.startDate|date('d/m/Y') }} - {{ experience.endDate|date('d/m/Y') }}
+                            </span>
+                        </p>
+                        {% if experience.workSummery %}
+                            <p class="mb-0">{{ experience.workSummery|nl2br }}</p>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Compétences -->
+<div class="card mb-4">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="card-title mb-0">
+            <i class="fas fa-star me-2"></i>Compétences ({{ resume.skills|length }})
+        </h5>
+        <a href="{{ path('admin_resume_skills_new', {'id': resume.id}) }}" class="btn btn-primary btn-sm">
+            <i class="fas fa-plus me-2"></i>Ajouter
+        </a>
+    </div>
+    <div class="card-body">
+        {% if resume.skills is empty %}
+            <div class="text-center py-4">
+                <i class="fas fa-star fa-3x text-muted mb-3"></i>
+                <p class="text-muted">Aucune compétence ajoutée</p>
+                <a href="{{ path('admin_resume_skills_new', {'id': resume.id}) }}" class="btn btn-primary">
+                    <i class="fas fa-plus me-2"></i>Ajouter une compétence
+                </a>
+            </div>
+        {% else %}
+        <div class="row"> 
+    {% for skill in resume.skills %}
+        <div class="col-md-2 mb-3">
+            <div class="border rounded p-3 position-relative">
+                
+                <!-- Boutons Modifier / Supprimer -->
+                <div class="position-absolute top-0 end-0 p-3">
+                    <div class="btn-group">
+                        <a href="{{ path('admin_resume_skills_edit', {'id': resume.id, 'skillId': skill.id}) }}" 
+                           class="btn btn-sm btn-light" title="Modifier">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <button type="button" 
+                                class="btn btn-sm btn-light" 
+                                data-bs-toggle="modal" 
+                                data-bs-target="#deleteSkillModal{{ skill.id }}"
+                                title="Supprimer">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Nom de la compétence et note -->
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                    <span class="fw-bold">{{ skill.name }}</span>
+                   
+                </div>
+
+                <!-- Optionnel : Affichage en étoiles -->
+                <div>
+               <span class="badge bg-primary">{{ skill.rating }}/5</span>
+                </div>
+
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+        {% endif %}
+    </div>
+</div>
+
+<!-- Modales de suppression -->
+{% for education in resume.education %}
+    <div class="modal fade" id="deleteEducationModal{{ education.id }}" tabindex="-1" aria-labelledby="deleteEducationModalLabel{{ education.id }}" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteEducationModalLabel{{ education.id }}">
+                        <i class="fas fa-exclamation-triangle text-danger me-2"></i>
+                        Confirmer la suppression
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Êtes-vous sûr de vouloir supprimer la formation <strong>"{{ education.degree }} en {{ education.major }}"</strong> ?</p>
+                    <div class="alert alert-danger mb-0">
+                        <i class="fas fa-warning me-2"></i>
+                        Cette action est irréversible.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+                        <i class="fas fa-times me-2"></i>Annuler
+                    </button>
+                    <form method="post" action="{{ path('admin_resume_education_delete', {'id': resume.id, 'educationId': education.id}) }}" style="display: inline;">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete_education' ~ education.id) }}">
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fas fa-trash me-2"></i>Supprimer
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+
+{% for experience in resume.experience %}
+    <div class="modal fade" id="deleteExperienceModal{{ experience.id }}" tabindex="-1" aria-labelledby="deleteExperienceModalLabel{{ experience.id }}" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteExperienceModalLabel{{ experience.id }}">
+                        <i class="fas fa-exclamation-triangle text-danger me-2"></i>
+                        Confirmer la suppression
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Êtes-vous sûr de vouloir supprimer l'expérience <strong>"{{ experience.title }}"</strong> ?</p>
+                    <div class="alert alert-danger mb-0">
+                        <i class="fas fa-warning me-2"></i>
+                        Cette action est irréversible.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+                        <i class="fas fa-times me-2"></i>Annuler
+                    </button>
+                    <form method="post" action="{{ path('admin_resume_experience_delete', {'id': resume.id, 'experienceId': experience.id}) }}" style="display: inline;">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete_experience' ~ experience.id) }}">
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fas fa-trash me-2"></i>Supprimer
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+
+{% for skill in resume.skills %}
+    <div class="modal fade" id="deleteSkillModal{{ skill.id }}" tabindex="-1" aria-labelledby="deleteSkillModalLabel{{ skill.id }}" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteSkillModalLabel{{ skill.id }}">
+                        <i class="fas fa-exclamation-triangle text-danger me-2"></i>
+                        Confirmer la suppression
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Êtes-vous sûr de vouloir supprimer la compétence <strong>"{{ skill.name }}"</strong> ?</p>
+                    <div class="alert alert-danger mb-0">
+                        <i class="fas fa-warning me-2"></i>
+                        Cette action est irréversible.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+                        <i class="fas fa-times me-2"></i>Annuler
+                    </button>
+                    <form method="post" action="{{ path('admin_resume_skills_delete', {'id': resume.id, 'skillId': skill.id}) }}" style="display: inline;">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete_skill' ~ skill.id) }}">
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fas fa-trash me-2"></i>Supprimer
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+
+</div>
+{% endblock %}

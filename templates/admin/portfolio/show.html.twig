@@ -1,0 +1,596 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block title %}{{ portfolio.title }} - Détails Portfolio{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h1 class="mb-0">
+                <i class="fas fa-briefcase me-3"></i>{{ portfolio.title }}
+            </h1>
+            <p class="mb-0 mt-2 opacity-75">Détails du portfolio de {{ portfolio.fullName }}</p>
+        </div>
+        <div class="btn-group">
+            <a href="{{ path('admin_portfolio_edit', {'id': portfolio.id}) }}" class="btn btn-primary">
+                <i class="fas fa-edit me-2"></i>Modifier
+            </a>
+            <a href="{{ path('admin_portfolio_index') }}" class="btn btn-light">
+                <i class="fas fa-arrow-left me-2"></i>Retour
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Informations personnelles -->
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-user me-2"></i>Informations personnelles
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Nom complet</label>
+                    <p class="mb-0">{{ portfolio.fullName }}</p>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Titre du poste</label>
+                    <p class="mb-0">{{ portfolio.jobTitle }}</p>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Email</label>
+                    <p class="mb-0">{{ portfolio.userEmail }}</p>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Nom d'utilisateur</label>
+                    <p class="mb-0">{{ portfolio.userName }}</p>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-bold">ID du portfolio</label>
+                    <p class="mb-0">{{ portfolio.portfolioID }}</p>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Couleur du thème</label>
+                    <div class="d-flex align-items-center">
+                        <div class="color-preview me-2" style="width: 20px; height: 20px; background-color: {{ portfolio.themeColor }}; border-radius: 4px;"></div>
+                        <p class="mb-0">{{ portfolio.themeColor }}</p>
+                    </div>
+                </div>
+                {% if portfolio.profilePicture %}
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Photo de profil</label>
+                    <img src="{{ portfolio.profilePicture }}" alt="Photo de profil" class="img-fluid rounded">
+                </div>
+                {% endif %}
+                {% if portfolio.bio %}
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Biographie</label>
+                    <p class="mb-0">{{ portfolio.bio }}</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Contenu du portfolio -->
+    <div class="col-md-8">
+        <!-- Statistiques -->
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="card bg-primary text-white">
+                    <div class="card-body">
+                        <h6 class="card-title">Compétences</h6>
+                        <h2 class="mb-0">{{ portfolio.skillsPortfolio|length }}</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-success text-white">
+                    <div class="card-body">
+                        <h6 class="card-title">Expériences</h6>
+                        <h2 class="mb-0">{{ portfolio.experiencesPortfolio|length }}</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-info text-white">
+                    <div class="card-body">
+                        <h6 class="card-title">Formations</h6>
+                        <h2 class="mb-0">{{ portfolio.educationPortfolio|length }}</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-warning text-white">
+                    <div class="card-body">
+                        <h6 class="card-title">Projets</h6>
+                        <h2 class="mb-0">{{ portfolio.projectsPortfolio|length }}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Compétences -->
+        <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-star me-2"></i>Compétences ({{ portfolio.skillsPortfolio|length }})
+                </h5>
+                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#newSkillModal">
+                    <i class="fas fa-plus me-1"></i>Ajouter
+                </button>
+            </div>
+            <div class="card-body">
+                {% if portfolio.skillsPortfolio|length > 0 %}
+                    <div class="row">
+                        {% for skill in portfolio.skillsPortfolio %}
+                            <div class="col-md-6 mb-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <h6 class="mb-1">{{ skill.name }}</h6>
+                                                <span class="badge bg-primary">{{ skill.level }}/5</span>
+                                            </div>
+                                            <div class="btn-group">
+                                                <a href="{{ path('admin_portfolio_skills_edit', {'id': portfolio.id, 'skillId': skill.id}) }}" class="btn btn-sm btn-light">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <button type="button" class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#deleteSkillModal{{ skill.id }}">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="text-center py-4">
+                        <i class="fas fa-star fa-3x text-muted mb-3"></i>
+                        <p class="mb-0">Aucune compétence n'a été ajoutée</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Expériences -->
+        <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-briefcase me-2"></i>Expériences ({{ portfolio.experiencesPortfolio|length }})
+                </h5>
+                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#newExperienceModal">
+                    <i class="fas fa-plus me-1"></i>Ajouter
+                </button>
+            </div>
+            <div class="card-body">
+                {% if portfolio.experiencesPortfolio|length > 0 %}
+                    {% for experience in portfolio.experiencesPortfolio %}
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <h6 class="mb-1">{{ experience.title }}</h6>
+                                        <p class="mb-1 text-muted">{{ experience.company }}</p>
+                                        <p class="mb-0 text-muted">
+                                            {{ experience.startDate|date('d/m/Y') }} - 
+                                            {% if experience.current %}
+                                                Présent
+                                            {% else %}
+                                                {{ experience.endDate|date('d/m/Y') }}
+                                            {% endif %}
+                                        </p>
+                                        {% if experience.description %}
+                                            <p class="mb-0 mt-2">{{ experience.description }}</p>
+                                        {% endif %}
+                                    </div>
+                                    <div class="btn-group">
+                                        <a href="{{ path('admin_portfolio_experience_edit', {'id': portfolio.id, 'experienceId': experience.id}) }}" class="btn btn-sm btn-light">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <button type="button" class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#deleteExperienceModal{{ experience.id }}">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="text-center py-4">
+                        <i class="fas fa-briefcase fa-3x text-muted mb-3"></i>
+                        <p class="mb-0">Aucune expérience n'a été ajoutée</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Formations -->
+        <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-graduation-cap me-2"></i>Formations ({{ portfolio.educationPortfolio|length }})
+                </h5>
+                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#newEducationModal">
+                    <i class="fas fa-plus me-1"></i>Ajouter
+                </button>
+            </div>
+            <div class="card-body">
+                {% if portfolio.educationPortfolio|length > 0 %}
+                    {% for education in portfolio.educationPortfolio %}
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <h6 class="mb-1">{{ education.degree }}</h6>
+                                        <p class="mb-1 text-muted">{{ education.institution }}</p>
+                                        <p class="mb-0 text-muted">
+                                            {{ education.startDate|date('d/m/Y') }} - 
+                                            {% if education.current %}
+                                                Présent
+                                            {% else %}
+                                                {{ education.endDate|date('d/m/Y') }}
+                                            {% endif %}
+                                        </p>
+                                    </div>
+                                    <div class="btn-group">
+                                        <a href="{{ path('admin_portfolio_education_edit', {'id': portfolio.id, 'educationId': education.id}) }}" class="btn btn-sm btn-light">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <button type="button" class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#deleteEducationModal{{ education.id }}">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="text-center py-4">
+                        <i class="fas fa-graduation-cap fa-3x text-muted mb-3"></i>
+                        <p class="mb-0">Aucune formation n'a été ajoutée</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Projets -->
+        <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-project-diagram me-2"></i>Projets ({{ portfolio.projectsPortfolio|length }})
+                </h5>
+                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#newProjectModal">
+                    <i class="fas fa-plus me-1"></i>Ajouter
+                </button>
+            </div>
+            <div class="card-body">
+                {% if portfolio.projectsPortfolio|length > 0 %}
+                    <div class="row">
+                        {% for project in portfolio.projectsPortfolio %}
+                            <div class="col-md-6 mb-3">
+                                <div class="card h-100">
+                                    {% if project.image %}
+                                        <img src="{{ project.image }}" class="card-img-top" alt="{{ project.title }}">
+                                    {% endif %}
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start">
+                                            <div>
+                                                <h6 class="mb-1">{{ project.title }}</h6>
+                                                {% if project.technologies %}
+                                                    <p class="mb-2 text-muted">{{ project.technologies }}</p>
+                                                {% endif %}
+                                                {% if project.description %}
+                                                    <p class="mb-2">{{ project.description }}</p>
+                                                {% endif %}
+                                                {% if project.url %}
+                                                    <a href="{{ project.url }}" target="_blank" class="btn btn-sm btn-light">
+                                                        <i class="fas fa-external-link-alt me-2"></i>Voir le projet
+                                                    </a>
+                                                {% endif %}
+                                            </div>
+                                            <div class="btn-group">
+                                                <a href="{{ path('admin_portfolio_project_edit', {'id': portfolio.id, 'projectId': project.id}) }}" class="btn btn-sm btn-light">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <button type="button" class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#deleteProjectModal{{ project.id }}">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="text-center py-4">
+                        <i class="fas fa-project-diagram fa-3x text-muted mb-3"></i>
+                        <p class="mb-0">Aucun projet n'a été ajouté</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Certificats -->
+        <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-certificate me-2"></i>Certificats ({{ portfolio.certificatesPortfolio|length }})
+                </h5>
+                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#newCertificateModal">
+                    <i class="fas fa-plus me-1"></i>Ajouter
+                </button>
+            </div>
+            <div class="card-body">
+                {% if portfolio.certificatesPortfolio|length > 0 %}
+                    <div class="row">
+                        {% for certificate in portfolio.certificatesPortfolio %}
+                            <div class="col-md-6 mb-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start">
+                                            <div>
+                                                <h6 class="mb-1">{{ certificate.name }}</h6>
+                                                <p class="mb-1 text-muted">{{ certificate.issuer }}</p>
+                                                <p class="mb-2 text-muted">{{ certificate.date|date('d/m/Y') }}</p>
+                                                {% if certificate.url %}
+                                                    <a href="{{ certificate.url }}" target="_blank" class="btn btn-sm btn-light">
+                                                        <i class="fas fa-external-link-alt me-2"></i>Voir le certificat
+                                                    </a>
+                                                {% endif %}
+                                            </div>
+                                            <div class="btn-group">
+                                                <a href="{{ path('admin_portfolio_certificate_edit', {'id': portfolio.id, 'certificateId': certificate.id}) }}" class="btn btn-sm btn-light">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <button type="button" class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#deleteCertificateModal{{ certificate.id }}">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="text-center py-4">
+                        <i class="fas fa-certificate fa-3x text-muted mb-3"></i>
+                        <p class="mb-0">Aucun certificat n'a été ajouté</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Liens sociaux -->
+        <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-share-alt me-2"></i>Liens sociaux ({{ portfolio.socialLinksPortfolio|length }})
+                </h5>
+                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#newSocialModal">
+                    <i class="fas fa-plus me-1"></i>Ajouter
+                </button>
+            </div>
+            <div class="card-body">
+                {% if portfolio.socialLinksPortfolio|length > 0 %}
+                    <div class="row">
+                        {% for social in portfolio.socialLinksPortfolio %}
+                            <div class="col-md-6 mb-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <h6 class="mb-1">{{ social.platform }}</h6>
+                                                <a href="{{ social.url }}" target="_blank" class="text-muted">
+                                                    <i class="fas fa-external-link-alt me-2"></i>{{ social.url }}
+                                                </a>
+                                            </div>
+                                            <div class="btn-group">
+                                                <a href="{{ path('admin_portfolio_social_edit', {'id': portfolio.id, 'socialId': social.id}) }}" class="btn btn-sm btn-light">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <button type="button" class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#deleteSocialModal{{ social.id }}">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="text-center py-4">
+                        <i class="fas fa-share-alt fa-3x text-muted mb-3"></i>
+                        <p class="mb-0">Aucun lien social n'a été ajouté</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modales de suppression -->
+{% for skill in portfolio.skillsPortfolio %}
+    <div class="modal fade" id="deleteSkillModal{{ skill.id }}" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirmer la suppression</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <i class="fas fa-exclamation-triangle text-warning fa-3x mb-3"></i>
+                    <p>Êtes-vous sûr de vouloir supprimer la compétence "{{ skill.name }}" ?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <form action="{{ path('admin_portfolio_skills_delete', {'id': portfolio.id, 'skillId': skill.id}) }}" method="post" class="d-inline">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete_skill' ~ skill.id) }}">
+                        <button type="submit" class="btn btn-danger">Supprimer</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+
+{% for experience in portfolio.experiencesPortfolio %}
+    <div class="modal fade" id="deleteExperienceModal{{ experience.id }}" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirmer la suppression</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <i class="fas fa-exclamation-triangle text-warning fa-3x mb-3"></i>
+                    <p>Êtes-vous sûr de vouloir supprimer l'expérience "{{ experience.title }}" ?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <form action="{{ path('admin_portfolio_experience_delete', {'id': portfolio.id, 'experienceId': experience.id}) }}" method="post" class="d-inline">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete_experience' ~ experience.id) }}">
+                        <button type="submit" class="btn btn-danger">Supprimer</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+
+{% for education in portfolio.educationPortfolio %}
+    <div class="modal fade" id="deleteEducationModal{{ education.id }}" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirmer la suppression</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <i class="fas fa-exclamation-triangle text-warning fa-3x mb-3"></i>
+                    <p>Êtes-vous sûr de vouloir supprimer la formation "{{ education.degree }}" ?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <form action="{{ path('admin_portfolio_education_delete', {'id': portfolio.id, 'educationId': education.id}) }}" method="post" class="d-inline">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete_education' ~ education.id) }}">
+                        <button type="submit" class="btn btn-danger">Supprimer</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+
+{% for project in portfolio.projectsPortfolio %}
+    <div class="modal fade" id="deleteProjectModal{{ project.id }}" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirmer la suppression</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <i class="fas fa-exclamation-triangle text-warning fa-3x mb-3"></i>
+                    <p>Êtes-vous sûr de vouloir supprimer le projet "{{ project.title }}" ?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <form action="{{ path('admin_portfolio_project_delete', {'id': portfolio.id, 'projectId': project.id}) }}" method="post" class="d-inline">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete_project' ~ project.id) }}">
+                        <button type="submit" class="btn btn-danger">Supprimer</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+
+{% for certificate in portfolio.certificatesPortfolio %}
+    <div class="modal fade" id="deleteCertificateModal{{ certificate.id }}" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirmer la suppression</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <i class="fas fa-exclamation-triangle text-warning fa-3x mb-3"></i>
+                    <p>Êtes-vous sûr de vouloir supprimer le certificat "{{ certificate.name }}" ?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <form action="{{ path('admin_portfolio_certificate_delete', {'id': portfolio.id, 'certificateId': certificate.id}) }}" method="post" class="d-inline">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete_certificate' ~ certificate.id) }}">
+                        <button type="submit" class="btn btn-danger">Supprimer</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+
+{% for social in portfolio.socialLinksPortfolio %}
+    <div class="modal fade" id="deleteSocialModal{{ social.id }}" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirmer la suppression</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <i class="fas fa-exclamation-triangle text-warning fa-3x mb-3"></i>
+                    <p>Êtes-vous sûr de vouloir supprimer le lien social "{{ social.platform }}" ?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <form action="{{ path('admin_portfolio_social_delete', {'id': portfolio.id, 'socialId': social.id}) }}" method="post" class="d-inline">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete_social' ~ social.id) }}">
+                        <button type="submit" class="btn btn-danger">Supprimer</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+
+<!-- Modales d'ajout -->
+{% include 'admin/portfolio/_modals.html.twig' %}
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .modal-backdrop {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        .modal-content {
+            border: none;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+        }
+        .modal-header {
+            border-bottom: none;
+            padding: 1.5rem 1.5rem 0.5rem;
+        }
+        .modal-body {
+            padding: 1.5rem;
+        }
+        .modal-footer {
+            border-top: none;
+            padding: 0.5rem 1.5rem 1.5rem;
+        }
+        .modal .btn-close {
+            padding: 0.5rem;
+            margin: -0.5rem -0.5rem -0.5rem auto;
+        }
+    </style>
+{% endblock %} 

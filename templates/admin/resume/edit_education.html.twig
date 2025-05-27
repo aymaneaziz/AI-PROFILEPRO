@@ -1,0 +1,86 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block title %}Modifier la formation - Admin{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h1 class="mb-0">
+                <i class="fas fa-graduation-cap me-3"></i>Modifier la formation
+            </h1>
+            <p class="mb-0 mt-2 opacity-75">Modifier les informations de la formation pour {{ resume.firstName }} {{ resume.lastName }}</p>
+        </div>
+        <div class="btn-group">
+            <a href="{{ path('admin_resume_show', {'id': resume.id}) }}" class="btn btn-light">
+                <i class="fas fa-arrow-left me-2"></i>Retour
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-graduation-cap me-2"></i>Informations de la formation
+                </h5>
+            </div>
+            <div class="card-body">
+                <form method="post" class="needs-validation" novalidate>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="universityName" class="form-label">Nom de l'université</label>
+                                <input type="text" class="form-control" id="universityName" name="universityName" 
+                                       value="{{ education.universityName }}" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="degree" class="form-label">Diplôme</label>
+                                <input type="text" class="form-control" id="degree" name="degree" 
+                                       value="{{ education.degree }}" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="major" class="form-label">Spécialisation</label>
+                                <input type="text" class="form-control" id="major" name="major" 
+                                       value="{{ education.major }}" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="startDate" class="form-label">Date de début</label>
+                                <input type="date" class="form-control" id="startDate" name="startDate" 
+                                       value="{{ education.startDate|date('Y-m-d') }}" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="endDate" class="form-label">Date de fin</label>
+                                <input type="date" class="form-control" id="endDate" name="endDate" 
+                                       value="{{ education.endDate|date('Y-m-d') }}" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea class="form-control" id="description" name="description" rows="4">{{ education.description }}</textarea>
+                    </div>
+
+                    <div class="d-flex justify-content-end gap-2">
+                        <a href="{{ path('admin_resume_show', {'id': resume.id}) }}" class="btn btn-light">
+                            <i class="fas fa-times me-2"></i>Annuler
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-2"></i>Enregistrer les modifications
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

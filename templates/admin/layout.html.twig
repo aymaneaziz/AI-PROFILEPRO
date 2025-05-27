@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Admin Panel{% endblock %}</title>
+    {% block link %}<link rel="icon" href="/symbole-flash.png">{% endblock %}
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        .sidebar {
+            height: 100vh;
+            background: #4F46E5;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            z-index: 1000;
+        }
+        
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+            min-height: 100vh;
+            background-color: #f8f9fa;
+        }
+        
+        .sidebar .nav-link {
+            color: white;
+            padding: 15px 20px;
+            border-radius: 0;
+            margin: 2px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar .nav-link:hover {
+            background-color: rgba(255,255,255,0.1);
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .sidebar .nav-link.active {
+            background-color: rgba(255,255,255,0.2);
+            color: white;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .btn-primary {
+            background: #4F46E5;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 25px;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .table {
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        
+        .table thead th {
+            background:#4F46E5;
+            color: white;
+            border: none;
+            font-weight: 600;
+        }
+        
+        .alert {
+            border-radius: 5px;
+            border: none;
+        }
+        
+        .page-header {
+            background: #4F46E5;
+            color: white;
+            padding: 30px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+ 
+
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <div class="p-4">
+            <h4 class="text-white">
+                <i class="fas fa-cogs"></i> Admin 
+            </h4>
+        </div>
+        
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link {{ app.request.get('_route') starts with 'admin_resume' ? 'active' : '' }}" 
+                   href="{{ path('admin_resume_index') }}">
+                    <i class="fas fa-file-alt me-2"></i> Gestion des CV
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ app.request.get('_route') starts with 'admin_portfolio' ? 'active' : '' }}" 
+                   href="{{ path('admin_portfolio_index') }}">
+                    <i class="fas fa-briefcase me-2"></i> Gestion des Portfolios
+                </a>
+            </li>
+       
+            <li class="nav-item">
+                <a class="nav-link {{ app.request.get('_route') starts with 'admin_settings' ? 'active' : '' }}" 
+                   href="{{ path('admin_settings_index') }}">
+                    <i class="fas fa-cog me-2"></i> Informations
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://localhost:5173/">
+                    <i class="fas fa-arrow-left me-2"></i> Retour
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Flash Messages -->
+        {% for type, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ type == 'error' ? 'danger' : type }} alert-dismissible fade show" role="alert">
+                    <i class="fas fa-{{ type == 'success' ? 'check-circle' : (type == 'error' ? 'exclamation-triangle' : 'info-circle') }} me-2"></i>
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

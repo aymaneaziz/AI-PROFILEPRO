@@ -1,0 +1,92 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block title %}Modifier l'expérience - Admin{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h1 class="mb-0">
+                <i class="fas fa-briefcase me-3"></i>Modifier l'expérience
+            </h1>
+            <p class="mb-0 mt-2 opacity-75">Modifier les informations de l'expérience pour {{ resume.firstName }} {{ resume.lastName }}</p>
+        </div>
+        <div class="btn-group">
+            <a href="{{ path('admin_resume_show', {'id': resume.id}) }}" class="btn btn-light">
+                <i class="fas fa-arrow-left me-2"></i>Retour
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-briefcase me-2"></i>Informations de l'expérience
+                </h5>
+            </div>
+            <div class="card-body">
+                <form method="post" class="needs-validation" novalidate>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="title" class="form-label">Titre du poste</label>
+                                <input type="text" class="form-control" id="title" name="title" 
+                                       value="{{ experience.title }}" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="companyName" class="form-label">Nom de l'entreprise</label>
+                                <input type="text" class="form-control" id="companyName" name="companyName" 
+                                       value="{{ experience.companyName }}" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="city" class="form-label">Ville</label>
+                                <input type="text" class="form-control" id="city" name="city" 
+                                       value="{{ experience.city }}" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="state" class="form-label">État/Région</label>
+                                <input type="text" class="form-control" id="state" name="state" 
+                                       value="{{ experience.state }}" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="startDate" class="form-label">Date de début</label>
+                                <input type="date" class="form-control" id="startDate" name="startDate" 
+                                       value="{{ experience.startDate|date('Y-m-d') }}" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="endDate" class="form-label">Date de fin</label>
+                                <input type="date" class="form-control" id="endDate" name="endDate" 
+                                       value="{{ experience.endDate|date('Y-m-d') }}" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="workSummery" class="form-label">Description du travail</label>
+                        <textarea class="form-control" id="workSummery" name="workSummery" rows="4">{{ experience.workSummery }}</textarea>
+                    </div>
+
+                    <div class="d-flex justify-content-end gap-2">
+                        <a href="{{ path('admin_resume_show', {'id': resume.id}) }}" class="btn btn-light">
+                            <i class="fas fa-times me-2"></i>Annuler
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-2"></i>Enregistrer les modifications
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

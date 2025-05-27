@@ -1,0 +1,167 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block title %}
+    {% if resume.id is defined and resume.id %}
+        Modifier le CV - {{ resume.title }}
+    {% else %}
+        Nouveau CV
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h1 class="mb-0">
+                <i class="fas fa-{% if resume.id is defined and resume.id %}edit{% else %}plus{% endif %} me-3"></i>
+                {% if resume.id is defined and resume.id %}
+                    Modifier le CV
+                {% else %}
+                    Nouveau CV
+                {% endif %}
+            </h1>
+            <p class="mb-0 mt-2 opacity-75">
+                {% if resume.id is defined and resume.id %}
+                    Modifiez les informations du CV de {{ resume.firstName }} {{ resume.lastName }}
+                {% else %}
+                    Créez un nouveau CV
+                {% endif %}
+            </p>
+        </div>
+        <a href="{{ path('admin_resume_index') }}" class="btn btn-light">
+            <i class="fas fa-arrow-left me-2"></i>Retour 
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-form me-2"></i>Informations du CV
+                </h5>
+            </div>
+            <div class="card-body">
+                {{ form_start(form, {'attr': {'class': 'needs-validation', 'novalidate': true}}) }}
+                
+                <div class="row">
+                    <!-- Colonne gauche -->
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            {{ form_label(form.title, null, {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                            {{ form_widget(form.title, {'attr': {'class': 'form-control form-control-lg', 'placeholder': 'Ex: CV Développeur Web'}}) }}
+                            {{ form_errors(form.title) }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form_label(form.resumeID, null, {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                            {{ form_widget(form.resumeID, {'attr': {'class': 'form-control', 'placeholder': 'ID unique du CV'}}) }}
+                            {{ form_errors(form.resumeID) }}
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    {{ form_label(form.firstName, null, {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                                    {{ form_widget(form.firstName, {'attr': {'class': 'form-control', 'placeholder': 'Prénom'}}) }}
+                                    {{ form_errors(form.firstName) }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    {{ form_label(form.lastName, null, {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                                    {{ form_widget(form.lastName, {'attr': {'class': 'form-control', 'placeholder': 'Nom'}}) }}
+                                    {{ form_errors(form.lastName) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form_label(form.jobTitle, null, {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                            {{ form_widget(form.jobTitle, {'attr': {'class': 'form-control', 'placeholder': 'Ex: Développeur Full Stack'}}) }}
+                            {{ form_errors(form.jobTitle) }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form_label(form.address, null, {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                            {{ form_widget(form.address, {'attr': {'class': 'form-control', 'placeholder': '123 Rue de la Paix, Paris'}}) }}
+                            {{ form_errors(form.address) }}
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    {{ form_label(form.phone, null, {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                                    {{ form_widget(form.phone, {'attr': {'class': 'form-control', 'placeholder': '+33 1 23 45 67 89'}}) }}
+                                    {{ form_errors(form.phone) }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    {{ form_label(form.themeColor, null, {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                                    <div class="input-group">
+                                        {{ form_widget(form.themeColor, {'attr': {'class': 'form-control form-control-color'}}) }}
+                                        <span class="input-group-text">Couleur</span>
+                                    </div>
+                                    {{ form_errors(form.themeColor) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Colonne droite -->
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            {{ form_label(form.email, null, {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                            {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder': 'email@example.com'}}) }}
+                            {{ form_errors(form.email) }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form_label(form.userName, null, {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                            {{ form_widget(form.userName, {'attr': {'class': 'form-control', 'placeholder': 'nom.utilisateur'}}) }}
+                            {{ form_errors(form.userName) }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form_label(form.userEmail, null, {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                            {{ form_widget(form.userEmail, {'attr': {'class': 'form-control', 'placeholder': 'utilisateur@example.com'}}) }}
+                            {{ form_errors(form.userEmail) }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form_label(form.summery, null, {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                            {{ form_widget(form.summery, {'attr': {'class': 'form-control', 'placeholder': 'Décrivez-vous en quelques lignes...', 'rows': 6}}) }}
+                            {{ form_errors(form.summery) }}
+                            <div class="form-text">
+                                <i class="fas fa-info-circle me-1"></i>
+                                Décrivez vos compétences, votre expérience et vos objectifs professionnels.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+               
+
+                <div class="d-flex justify-content-between mt-4">
+                    <a href="{{ path('admin_resume_index') }}" class="btn btn-secondary">
+                        <i class="fas fa-times me-2"></i>Annuler
+                    </a>
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        <i class="fas fa-save me-2"></i>
+                        {% if resume.id is defined and resume.id %}
+                            Enregistrer les modifications
+                        {% else %}
+                            Créer le CV
+                        {% endif %}
+                    </button>
+                </div>
+
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

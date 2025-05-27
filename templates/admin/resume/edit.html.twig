@@ -1,0 +1,126 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block title %}Modifier {{ resume.title }} - Admin{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h1 class="mb-0">
+                <i class="fas fa-edit me-3"></i>Modifier {{ resume.title }}
+            </h1>
+            <p class="mb-0 mt-2 opacity-75">Modifier les informations du CV de {{ resume.firstName }} {{ resume.lastName }}</p>
+        </div>
+        <div class="btn-group">
+            <a href="{{ path('admin_resume_index', {'id': resume.id}) }}" class="btn btn-light">
+                <i class="fas fa-arrow-left me-2"></i>Retour
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-user-edit me-2"></i>Informations du CV
+                </h5>
+            </div>
+            <div class="card-body">
+                {{ form_start(form, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate'}}) }}
+                
+                <div class="row">
+                    <!-- Informations personnelles -->
+                    <div class="col-md-6">
+                        <h6 class="mb-3">Informations personnelles</h6>
+                        
+                        <div class="mb-3">
+                            {{ form_label(form.firstName, 'Prénom', {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(form.firstName, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.firstName) }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form_label(form.lastName, 'Nom', {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(form.lastName, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.lastName) }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form_label(form.jobTitle, 'Titre du poste', {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(form.jobTitle, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.jobTitle) }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form_label(form.email, 'Email', {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.email) }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form_label(form.phone, 'Téléphone', {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(form.phone, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.phone) }}
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <h6 class="mb-3">Informations supplémentaires</h6>
+
+                        <div class="mb-3">
+                            {{ form_label(form.address, 'Adresse', {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(form.address, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.address) }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form_label(form.userName, 'Nom d\'utilisateur', {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(form.userName, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.userName) }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form_label(form.userEmail, 'Email utilisateur', {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(form.userEmail, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.userEmail) }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form_label(form.themeColor, 'Couleur du thème', {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(form.themeColor, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.themeColor) }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <div class="mb-3">
+                            {{ form_label(form.summery, 'Résumé', {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(form.summery, {'attr': {'class': 'form-control', 'rows': 5}}) }}
+                            {{ form_errors(form.summery) }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="d-flex justify-content-end gap-2">
+                            <a href="{{ path('admin_resume_show', {'id': resume.id}) }}" class="btn btn-light">
+                                <i class="fas fa-times me-2"></i>Annuler
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save me-2"></i>Enregistrer les modifications
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

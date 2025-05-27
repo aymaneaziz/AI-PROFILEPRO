@@ -1,0 +1,96 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block title %}Nouveau Portfolio{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h1 class="mb-0">
+                <i class="fas fa-briefcase me-3"></i>Nouveau Portfolio
+            </h1>
+            <p class="mb-0 mt-2 opacity-75">Créer un nouveau portfolio</p>
+        </div>
+        <div class="btn-group">
+            <a href="{{ path('admin_portfolio_index') }}" class="btn btn-light">
+                <i class="fas fa-arrow-left me-2"></i>Retour
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-info-circle me-2"></i>Informations du portfolio
+                </h5>
+            </div>
+            <div class="card-body">
+                <form method="post" class="needs-validation" novalidate>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="title" class="form-label">Titre</label>
+                                <input type="text" class="form-control" id="title" name="title" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="userEmail" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="userEmail" name="userEmail" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="userName" class="form-label">Nom d'utilisateur</label>
+                                <input type="text" class="form-control" id="userName" name="userName" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="portfolioID" class="form-label">ID du Portfolio</label>
+                                <input type="text" class="form-control" id="portfolioID" name="portfolioID" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="fullName" class="form-label">Nom complet</label>
+                                <input type="text" class="form-control" id="fullName" name="fullName" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="jobTitle" class="form-label">Titre du poste</label>
+                                <input type="text" class="form-control" id="jobTitle" name="jobTitle" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="profilePicture" class="form-label">Photo de profil</label>
+                                <input type="text" class="form-control" id="profilePicture" name="profilePicture">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="themeColor" class="form-label">Couleur du thème</label>
+                                <input type="color" class="form-control form-control-color" id="themeColor" name="themeColor" value="#667eea">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="bio" class="form-label">Biographie</label>
+                        <textarea class="form-control" id="bio" name="bio" rows="4"></textarea>
+                    </div>
+
+                    <div class="d-flex justify-content-end gap-2">
+                        <a href="{{ path('admin_portfolio_index') }}" class="btn btn-light">
+                            <i class="fas fa-times me-2"></i>Annuler
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-2"></i>Enregistrer
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

@@ -1,0 +1,198 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block title %}Gestion des CV - Admin{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h1 class="mb-0">
+                <i class="fas fa-file-alt me-3"></i>Gestion des CV
+            </h1>
+            <p class="mb-0 mt-2 opacity-75">Gérez tous les CV des utilisateurs</p>
+        </div>
+        <a href="{{ path('admin_resume_new') }}" class="btn btn-light btn-lg">
+            <i class="fas fa-plus me-2"></i>Nouveau CV
+        </a>
+    </div>
+</div>
+
+<!-- Statistiques -->
+<div class="row mt-4 mb-4">
+    <div class="col-md-3">
+        <div class="card bg-primary text-white">
+            <div class="card-body d-flex justify-content-between">
+                <div>
+                    <h4>{{ resumes|length }}</h4>
+                    <p class="mb-0">Total CV</p>
+                </div>
+                <i class="fas fa-file-alt fa-2x opacity-75 align-self-center"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-success text-white">
+            <div class="card-body d-flex justify-content-between">
+                <div>
+                    <h4>{{ resumes|filter(r => r.education|length > 0)|length }}</h4>
+                    <p class="mb-0">Avec Formation</p>
+                </div>
+                <i class="fas fa-graduation-cap fa-2x opacity-75 align-self-center"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-info text-white">
+            <div class="card-body d-flex justify-content-between">
+                <div>
+                    <h4>{{ resumes|filter(r => r.experience|length > 0)|length }}</h4>
+                    <p class="mb-0">Avec Expérience</p>
+                </div>
+                <i class="fas fa-briefcase fa-2x opacity-75 align-self-center"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-warning text-white">
+            <div class="card-body d-flex justify-content-between">
+                <div>
+                    <h4>{{ resumes|filter(r => r.skills|length > 0)|length }}</h4>
+                    <p class="mb-0">Avec Compétences</p>
+                </div>
+                <i class="fas fa-star fa-2x opacity-75 align-self-center"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header bg-white">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-list me-2"></i>Liste des CV ({{ resumes|length }})
+                </h5>
+            </div>
+            <div class="card-body p-0">
+                {% if resumes is empty %}
+                    <div class="text-center py-5">
+                        <i class="fas fa-file-alt fa-3x text-muted mb-3"></i>
+                        <h4 class="text-muted">Aucun CV trouvé</h4>
+                        <p class="text-muted">Commencez par créer votre premier CV</p>
+                        <a href="{{ path('admin_resume_new') }}" class="btn btn-primary">
+                            <i class="fas fa-plus me-2"></i>Créer un CV
+                        </a>
+                    </div>
+                {% else %}
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Titre</th>
+                                    <th>Utilisateur</th>
+                                    <th>Email</th>
+                                    <th>Poste</th>
+                                    <th>Thème</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for resume in resumes %}
+                                    <tr>
+                                        <td><span class="badge bg-primary">{{ resume.id }}</span></td>
+                                        <td><strong>{{ resume.title }}</strong></td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="avatar bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-2"
+                                                     style="width: 35px; height: 35px; font-size: 14px;">
+                                                    {{ resume.firstName|default('')|first|upper }}{{ resume.lastName|default('')|first|upper }}
+                                                </div>
+                                                <div>
+                                                    <div class="fw-bold">{{ resume.firstName }} {{ resume.lastName }}</div>
+                                                    <small class="text-muted">{{ resume.userName }}</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <a href="mailto:{{ resume.email }}" class="text-decoration-none">
+                                                {{ resume.email }}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-info">{{ resume.jobTitle }}</span>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="rounded-circle me-2"
+                                                     style="width: 20px; height: 20px; background-color: {{ resume.themeColor }};">
+                                                </div>
+                                                <small>{{ resume.themeColor }}</small>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <a href="{{ path('admin_resume_show', {'id': resume.id}) }}" 
+                                                   class="btn btn-sm btn-light" title="Voir">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                                <a href="{{ path('admin_resume_edit', {'id': resume.id}) }}" 
+                                                   class="btn btn-sm btn-light" title="Modifier">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <button type="button" 
+                                                        class="btn btn-sm btn-light" 
+                                                        data-bs-toggle="modal" 
+                                                        data-bs-target="#deleteModal{{ resume.id }}"
+                                                        title="Supprimer">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modales de suppression -->
+{% for resume in resumes %}
+<div class="modal fade" id="deleteModal{{ resume.id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ resume.id }}" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <h5 class="modal-title" id="deleteModalLabel{{ resume.id }}">
+                    <i class="fas fa-exclamation-triangle text-danger me-2"></i>
+                    Confirmer la suppression
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+            </div>
+            <div class="modal-body">
+                <p>Êtes-vous sûr de vouloir supprimer le CV <strong>"{{ resume.title }}"</strong> ?</p>
+                <div class="alert alert-danger mb-0">
+                    <i class="fas fa-warning me-2"></i>
+                    Cette action est irréversible et supprimera définitivement toutes les données associées à ce CV.
+                </div>
+            </div>
+            <div class="modal-footer border-0">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-2"></i>Annuler
+                </button>
+                <form method="post" action="{{ path('admin_resume_delete', {'id': resume.id}) }}" style="display: inline;">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ resume.id) }}">
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-trash me-2"></i>Supprimer
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

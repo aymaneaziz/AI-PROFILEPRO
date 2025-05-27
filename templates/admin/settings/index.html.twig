@@ -1,0 +1,36 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block title %}Informations{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="page-header">
+        <h1 class="mb-0">
+            <i class="fas fa-cog me-2"></i>Informations
+        </h1>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title mb-4">Informations Générales</h5>
+                    <div class="mb-3">
+                        <label class="form-label">Nom du site</label>
+                        <input type="text" class="form-control" value="{{ settings.site_name }}" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <textarea class="form-control" rows="3" readonly>{{ settings.site_description }}</textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Email de contact</label>
+                        <input type="email" class="form-control" value="{{ settings.contact_email }}" readonly>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
