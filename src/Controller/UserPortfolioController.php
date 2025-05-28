@@ -219,6 +219,26 @@ public function updatePortfolio(string $id, Request $request): JsonResponse
      
   
 }
+//----------------------------------------------get_all_public_portfolios---------------------------------------------------------------------
+#[Route('/public', name: 'api_public_portfolios', methods: ['GET'])]
+    public function getPublicPortfolios(): JsonResponse
+    {
+        $portfolio = $this->portfolioRepo->findBy(['isPublic' => true]);
+
+        $data = array_map(function ($portfolio) {
+            return [
+                'portfolioID' => $portfolio->getPortfolioID(),
+                'title' => $portfolio->getTitle(),
+                'fullName' => $portfolio->getFullName(),
+                'jobTitle' => $portfolio->getJobTitle(),
+                'themeColor' => $portfolio->getThemeColor(),
+                'bio' => $portfolio->getBio(),
+
+            ];
+        }, $portfolio);
+
+        return new JsonResponse(['data' => $data]);
+    }
 //-----------------------------------------------get_portfolio_by_id--------------------------------------------------------------------
 #[Route('/{id}', name: 'get_portfolio', methods: ['GET'])]
 public function getPortfolioById(string $id): JsonResponse
@@ -236,7 +256,6 @@ public function getPortfolioById(string $id): JsonResponse
         'profilePicture' => $portfolio->getProfilePicture(),
         'bio' => $portfolio->getBio(),
         'themeColor' => $portfolio->getThemeColor(),
-
         'skillsPortfolio' => array_map(function ($skill) {
             return [
                 'id' => $skill->getId(),
@@ -316,4 +335,38 @@ public function deletePortfolio(string $id): JsonResponse {
     return new JsonResponse(['message' => 'Portfolio deleted successfully.']);
 }
 
+//------------------------------------------set_mode------------------------------------------------------------------------------
+
+    #[Route('/{id}/update-mode', name: 'api_portfolio_update_mode', methods: ['PUT'])]
+    public function updateMode(string $id, Request $request): JsonResponse
+    {
+        $portfolio = $this->portfolioRepo->findOneBy(['portfolioID' => $id]);
+        if (!$portfolio) {
+            return new JsonResponse(['message' => 'Portfolio not found'], 404);
+        }
+
+        $data = json_decode($request->getContent(), true);
+        $isPublic = $data['isPublic'] ?? false;
+
+        $portfolio->setIsPublic($isPublic);
+        $this->em->flush();
+
+        return new JsonResponse([
+            'message' => 'Portfolio visibility updated successfully',
+            'isPublic' => $isPublic
+        ]);
+    }
+
+    #[Route('/{id}/get-mode', name: 'api_portfolio_get_mode', methods: ['GET'])]
+    public function getMode(string $id): JsonResponse
+    {
+        $portfolio = $this->portfolioRepo->findOneBy(['portfolioID' => $id]);
+        if (!$portfolio) {
+            return new JsonResponse(['message' => 'Portfolio not found'], 404);
+        }
+        
+        return new JsonResponse([
+            'isPublic' => $portfolio->isPublic()
+        ]);
+    }
 }

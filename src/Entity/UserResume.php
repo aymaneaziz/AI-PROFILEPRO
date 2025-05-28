@@ -51,6 +51,9 @@ class UserResume
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $themeColor = null;
 
+    #[ORM\Column(type: 'boolean', options: ['default' => false])]
+    private bool $isPublic = false;
+
     /**
      * @var Collection<int, Experience>
      */
@@ -233,6 +236,18 @@ class UserResume
     public function setThemeColor(?string $themeColor): static
     {
         $this->themeColor = $themeColor;
+
+        return $this;
+    }
+
+    public function isPublic(): bool
+    {
+        return $this->isPublic;
+    }
+
+    public function setIsPublic(bool $isPublic): static
+    {
+        $this->isPublic = $isPublic;
 
         return $this;
     }

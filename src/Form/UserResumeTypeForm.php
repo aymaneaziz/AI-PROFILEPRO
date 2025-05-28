@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\ColorType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -63,6 +64,11 @@ class UserResumeTypeForm extends AbstractType
             ->add('summery', TextareaType::class, [
                 'label' => 'Résumé',
                 'attr' => ['class' => 'form-control', 'rows' => 5]
+            ])
+            ->add('isPublic', CheckboxType::class, [
+                'label' => 'Résumé public',
+                'required' => false,
+                'attr' => ['class' => 'form-check-input']
             ]);
             
     }

@@ -172,8 +172,31 @@ class UserResumeController extends AbstractController
 
         return new JsonResponse(['message' => 'Resume updated successfully']);
     }
+//----------------------------------------------get_all_public_resumes---------------------------------------------------------------------
+#[Route('/public', name: 'api_public_resumes', methods: ['GET'])]
+    public function getPublicResumes(): JsonResponse
+    {
+        $resumes = $this->resumeRepo->findBy(['isPublic' => true]);
+
+        $data = array_map(function ($resume) {
+            return [
+                'resumeID' => $resume->getResumeID(),
+                'title' => $resume->getTitle(),
+                'firstName' => $resume->getFirstName(),
+                'lastName' => $resume->getLastName(),
+                'jobTitle' => $resume->getJobTitle(),
+                'themeColor' => $resume->getThemeColor(),
+                'summery' => $resume->getSummery(),
+                'email' => $resume->getEmail(),
+                'phone' => $resume->getPhone(),
+                'address' => $resume->getAddress(),
+            ];
+        }, $resumes);
+
+        return new JsonResponse(['data' => $data]);
+    }
 //----------------------------------------------get_resume_by_id---------------------------------------------------------------------
-#[Route('/{id}', name: 'get_resume_by_id', methods: ['GET'])]
+    #[Route('/{id}', name: 'get_resume_by_id', methods: ['GET'])]
     public function getResumeById(string $id): JsonResponse
     {
          $resume = $this->resumeRepo->findOneBy(['resumeID' => $id]);
@@ -243,5 +266,39 @@ class UserResumeController extends AbstractController
         $this->em->flush();
 
         return new JsonResponse(['message' => 'Resume deleted successfully.']);
+    }
+//------------------------------------------set_mode------------------------------------------------------------------------------
+
+    #[Route('/{id}/update-mode', name: 'api_resume_update_mode', methods: ['PUT'])]
+    public function updateMode(string $id, Request $request): JsonResponse
+    {
+        $resume = $this->resumeRepo->findOneBy(['resumeID' => $id]);
+        if (!$resume) {
+            return new JsonResponse(['message' => 'Resume not found'], 404);
+        }
+
+        $data = json_decode($request->getContent(), true);
+        $isPublic = $data['isPublic'] ?? false;
+
+        $resume->setIsPublic($isPublic);
+        $this->em->flush();
+
+        return new JsonResponse([
+            'message' => 'Resume visibility updated successfully',
+            'isPublic' => $isPublic
+        ]);
+    }
+
+    #[Route('/{id}/get-mode', name: 'api_resume_get_mode', methods: ['GET'])]
+    public function getMode(string $id): JsonResponse
+    {
+        $resume = $this->resumeRepo->findOneBy(['resumeID' => $id]);
+        if (!$resume) {
+            return new JsonResponse(['message' => 'Resume not found'], 404);
+        }
+        
+        return new JsonResponse([
+            'isPublic' => $resume->isPublic()
+        ]);
     }
 }

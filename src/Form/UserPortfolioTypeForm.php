@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\UserPortfolio;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -21,6 +22,11 @@ class UserPortfolioTypeForm extends AbstractType
             ->add('profilePicture')
             ->add('bio')
             ->add('themeColor')
+            ->add('isPublic', CheckboxType::class, [
+                'label' => 'Portfolio public',
+                'required' => false,
+       
+            ]);
         ;
     }
 
