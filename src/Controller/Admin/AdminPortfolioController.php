@@ -80,6 +80,7 @@ class AdminPortfolioController extends AbstractController
             $portfolio->setProfilePicture($request->request->get('profilePicture'));
             $portfolio->setBio($request->request->get('bio'));
             $portfolio->setThemeColor($request->request->get('themeColor'));
+            $portfolio->setIsPublic($request->request->get('isPublic') === 'on');
 
             $this->entityManager->persist($portfolio);
             $this->entityManager->flush();
@@ -114,6 +115,7 @@ class AdminPortfolioController extends AbstractController
             $portfolio->setProfilePicture($request->request->get('profilePicture'));
             $portfolio->setBio($request->request->get('bio'));
             $portfolio->setThemeColor($request->request->get('themeColor'));
+            $portfolio->setIsPublic($request->request->get('isPublic') === 'on');
 
             $this->entityManager->flush();
 

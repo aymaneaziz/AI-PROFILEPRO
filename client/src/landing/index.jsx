@@ -160,67 +160,78 @@ export default function LandingPage() {
         </section>
 
         {/* Examples Section */}
-        <section id="exemples" className="w-full py-12 md:py-24 lg:py-32 ">
+        <section
+          id="recherche-profils"
+          className="w-full py-12 md:py-24 lg:py-32 "
+        >
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
                 <div className="inline-block rounded-lg bg-primary px-3 py-1 text-sm text-primary-foreground">
-                  Exemples
+                  Recherche de Talents
                 </div>
                 <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
-                  Des modèles qui impressionnent
+                  Trouvez les profils parfaits pour votre entreprise
                 </h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed">
-                  Quelques exemples de CV professionnel
+                  Notre service vous aide à identifier et recruter les meilleurs
+                  candidats selon vos critères
                 </p>
               </div>
             </div>
             <div className="mx-auto grid max-w-5xl gap-6 py-12 md:grid-cols-2 lg:grid-cols-3">
               <div className="group relative overflow-hidden rounded-lg border shadow-sm cursor-pointer">
                 <img
-                  src="/port1.jpeg"
-                  alt="Exemple de CV"
+                  src="/resume1.jpeg"
+                  alt="Profil Développeur"
                   className="aspect-[3/4] object-cover transition-transform group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/0 to-background/0 flex items-end p-6">
                   <div>
-                    <h3 className="text-lg font-bold">Portfolio Minimaliste</h3>
+                    <h3 className="text-lg font-bold">Profils Techniques</h3>
                     <p className="text-sm text-muted-foreground">
-                      Parfait pour les profils créatifs
+                      Développeurs, ingénieurs et experts IT
                     </p>
                   </div>
                 </div>
               </div>
               <div className="group relative overflow-hidden rounded-lg border shadow-sm cursor-pointer">
                 <img
-                  src="/resume1.jpeg"
-                  alt="Exemple de CV"
+                  src="/resume2.jpeg"
+                  alt="Profil Commercial"
                   className="aspect-[3/4] object-cover transition-transform group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/0 to-background/0 flex items-end p-6">
                   <div>
-                    <h3 className="text-lg font-bold">CV Professionnel</h3>
+                    <h3 className="text-lg font-bold">Profils Commerciaux</h3>
                     <p className="text-sm text-muted-foreground">
-                      Idéal pour les postes de direction
+                      Commerciaux, chargés de clientèle et business developers
                     </p>
                   </div>
                 </div>
               </div>
-              <div className="group relative overflow-hidden rounded-lg border shadow-sm cursor-pointer ">
+              <div className="group relative overflow-hidden rounded-lg border shadow-sm cursor-pointer">
                 <img
-                  src="/resume2.jpeg"
-                  alt="Exemple de CV"
-                  className="aspect-[3/4] object-cover transition-transform group-hover:scale-105 "
+                  src="/port1.jpeg"
+                  alt="Profil Direction"
+                  className="aspect-[3/4] object-cover transition-transform group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/0 to-background/0 flex items-end p-6">
                   <div>
-                    <h3 className="text-lg font-bold">CV Technique</h3>
+                    <h3 className="text-lg font-bold">Profils Direction</h3>
                     <p className="text-sm text-muted-foreground">
-                      Optimisé pour les métiers de l'IT
+                      Managers, directeurs et cadres expérimentés
                     </p>
                   </div>
                 </div>
               </div>
+            </div>
+            <div className="flex justify-center mt-8">
+              <Link to={"/public-resumes"}>
+                <button className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring">
+                  Rechercher des profils
+                </button>
+              </Link>
             </div>
           </div>
         </section>

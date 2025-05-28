@@ -141,7 +141,7 @@ button {
   }
 
   body {
-    margin: 0;
+    margin: -200px 0px -70px 0px;
     padding: 0;
     box-shadow: none;
   }
@@ -149,5 +149,5 @@ button {
 
 @page {
   size: auto;
-  margin: -110px -40px -10px;
+  margin: 0mm;
 }

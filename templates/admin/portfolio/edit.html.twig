@@ -80,6 +80,16 @@
                                 <input type="color" class="form-control form-control-color" id="themeColor" name="themeColor" 
                                        value="{{ portfolio.themeColor }}">
                             </div>
+
+                            <div class="mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="isPublic" name="isPublic" 
+                                           {% if portfolio.isPublic %}checked{% endif %}>
+                                    <label class="form-check-label" for="isPublic">
+                                        Portfolio public
+                                    </label>
+                                </div>
+                            </div>
                         </div>
                     </div>
 

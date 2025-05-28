@@ -10,7 +10,7 @@ function ResumePreview() {
   const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
   return (
     <div
-      className="shadow-lg h-full p-5 border-t-[20px] "
+      className="shadow-lg h-full p-5 border-t-[20px] print:p-0 print:shadow-none"
       style={{ borderColor: resumeInfo?.themeColor }}
     >
       {/* Personel Detail/ */}
