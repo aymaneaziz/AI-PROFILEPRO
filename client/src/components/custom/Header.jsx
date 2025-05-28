@@ -21,7 +21,7 @@ function Header({ titre1, titre2, titre3 }) {
 
   const isActive = (path) => location.pathname.startsWith(path);
   const handleClick = () => {
-    window.location.href = "http://127.0.0.1:8000/";
+    window.location.href = "http://127.0.0.1:8000/admin";
   };
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
