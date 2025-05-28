@@ -66,7 +66,7 @@ function Header({ titre1, titre2, titre3 }) {
                   href="#exemples"
                   className="text-sm font-semibold hover:text-indigo-600"
                 >
-                  Exemples
+                  Service
                 </a>
                 <a
                   href="#contact"
