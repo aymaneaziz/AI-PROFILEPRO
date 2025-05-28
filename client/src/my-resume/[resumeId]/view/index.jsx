@@ -54,8 +54,6 @@ function ViewResume() {
         id="no-print"
         className="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen"
       >
-        <Header />
-
         {/* Section de félicitations moderne */}
 
         <div className="container mx-auto px-6 py-12">

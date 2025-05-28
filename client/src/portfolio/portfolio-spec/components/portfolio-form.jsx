@@ -6,6 +6,7 @@ import {
   ArrowLeft,
   Brain,
   Home,
+  Loader2,
   LoaderCircle,
   PlusCircle,
   Save,
@@ -28,6 +29,8 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import GlobalApi from "../../../../service/GlobalApi";
 import { toast } from "sonner";
 import { AIChatSession } from "../../../../service/AIModal";
+import { Label } from "@radix-ui/react-label";
+import { Switch } from "@/components/ui/switch";
 
 export default function PortfolioForm({ onSubmit, initialData }) {
   // État initial par défaut
@@ -104,6 +107,7 @@ export default function PortfolioForm({ onSubmit, initialData }) {
   const [isLoading, setIsLoading] = useState(false);
   const params = useParams();
   const navigate = useNavigate();
+  const [isPublic, setIsPublic] = useState(false);
 
   useEffect(() => {
     if (params?.portfolioId) {
@@ -509,7 +513,37 @@ export default function PortfolioForm({ onSubmit, initialData }) {
       setIsLoading(false);
     }
   };
+  useEffect(() => {
+    const fetchVisibility = async () => {
+      try {
+        setIsLoading(true);
+        const response = await GlobalApi.GetModePortfolio(params?.portfolioId);
+        setIsPublic(response.data.isPublic);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error fetching resume visibility:", error);
+      }
+    };
 
+    fetchVisibility();
+  }, [params?.portfolioId]);
+
+  const handleVisibilityChange = async (checked) => {
+    setIsLoading(true);
+    try {
+      const resp = await GlobalApi.UpdateModePortfolio(params?.portfolioId, {
+        isPublic: checked,
+      });
+      console.log(resp);
+      setIsPublic(checked);
+      toast("Détails sauvegardés avec succès");
+    } catch (error) {
+      console.error(error);
+      toast("Erreur du serveur. Veuillez réessayer");
+    } finally {
+      setIsLoading(false);
+    }
+  };
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
       <header className="bg-white rounded-lg shadow">
@@ -532,6 +566,15 @@ export default function PortfolioForm({ onSubmit, initialData }) {
                 <div className="w-8 h-8 border-4 border-gray-400 border-t-transparent rounded-full animate-spin"></div>
               </>
             )}
+            <Label htmlFor="resume-visibility">
+              {isPublic ? "Portfolio public" : "Portfolio privé"}
+            </Label>
+            <Switch
+              id="resume-visibility"
+              checked={isPublic}
+              onCheckedChange={handleVisibilityChange}
+              disabled={isLoading}
+            />
 
             <Button
               type="button"

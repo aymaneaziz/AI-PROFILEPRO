@@ -26,8 +26,6 @@ function ViewPortfolio() {
 
   return (
     <>
-      <Header />
-
       <div className=" ">
         <PortfolioPreview data={portfolioInfo} />
       </div>

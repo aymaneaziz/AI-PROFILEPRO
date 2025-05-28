@@ -36,6 +36,12 @@ const GetResumeById = (id) => axiosClient.get(`/resumes/${id}`);
 
 const DeleteResumeById = (id) => axiosClient.delete(`/resumes/${id}`);
 
+const UpdateMode = (id, data) =>
+  axiosClient.put(`/resumes/${id}/update-mode`, data);
+
+const GetMode = (id) => axiosClient.get(`/resumes/${id}/get-mode`);
+
+const GetPublicResumes = () => axiosClient.get("/resumes/public");
 //Portfolio
 
 const CreateNewPortfolio = (data) => axiosClient.post("/portfolios", data);
@@ -50,6 +56,13 @@ const GetPortfolioById = (id) => axiosClient.get(`/portfolios/${id}`);
 
 const DeletePortfolioById = (id) => axiosClient.delete(`/portfolios/${id}`);
 
+const UpdateModePortfolio = (id, data) =>
+  axiosClient.put(`/portfolios/${id}/update-mode`, data);
+
+const GetModePortfolio = (id) => axiosClient.get(`/portfolios/${id}/get-mode`);
+
+const GetPublicPortfolios = () => axiosClient.get("/portfolios/public");
+
 export default {
   CreateNewResume,
   GetUserResumes,
@@ -62,4 +75,12 @@ export default {
   UpdatePortfolioDetail,
   GetPortfolioById,
   DeletePortfolioById,
+
+  UpdateMode,
+  GetMode,
+  GetPublicResumes,
+
+  UpdateModePortfolio,
+  GetModePortfolio,
+  GetPublicPortfolios,
 };

@@ -36,7 +36,7 @@ function ResumeCardItem({ resume, refreshData }) {
     GlobalApi.DeleteResumeById(resume.resumeID).then(
       (resp) => {
         console.log(resp);
-        toast("Resume Deleted!");
+        toast("Cv supprimé !");
         refreshData();
         setLoading(false);
         setOpenAlert(false);

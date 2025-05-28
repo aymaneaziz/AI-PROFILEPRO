@@ -14,6 +14,8 @@ import LandingPage from "./landing";
 import Portfoliospec from "./portfolio";
 import ViewPortfolio from "./my-portfolio/[portfolioId]/view";
 import Contact from "./components/contact/Contact";
+import PublicResumes from "./pages/PublicResumes";
+import ResumeView from "./pages/[resumeId]/view";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
@@ -29,6 +31,10 @@ const router = createBrowserRouter([
         path: "/dashboard/resume/:resumeId/edit",
         element: <EditResume />,
       },
+      {
+        path: "/my-resume/:resumeId/view",
+        element: <ViewResume />,
+      },
     ],
   },
   {
@@ -42,6 +48,10 @@ const router = createBrowserRouter([
         path: "/portfolio/portfoliospec/:portfolioId/edit",
         element: <Portfolio />,
       },
+      {
+        path: "/my-portfolio/:portfolioId/view",
+        element: <ViewPortfolio />,
+      },
     ],
   },
   {
@@ -52,13 +62,23 @@ const router = createBrowserRouter([
     path: "/auth/sign-in",
     element: <SignInPage />,
   },
+
   {
-    path: "/my-resume/:resumeId/view",
-    element: <ViewResume />,
-  },
-  {
-    path: "/my-portfolio/:portfolioId/view",
-    element: <ViewPortfolio />,
+    element: <App />,
+    children: [
+      {
+        path: "/public-resumes",
+        element: <PublicResumes />,
+      },
+      {
+        path: "/pages/:resumeId/view",
+        element: <ResumeView />,
+      },
+      {
+        path: "/my-portfolio/:portfolioId/view",
+        element: <ViewPortfolio />,
+      },
+    ],
   },
 ]);
 

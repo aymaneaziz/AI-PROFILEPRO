@@ -10,6 +10,7 @@ import {
   Briefcase,
   User,
   UserCogIcon,
+  Earth,
 } from "lucide-react";
 
 function Header({ titre1, titre2, titre3 }) {
@@ -39,7 +40,7 @@ function Header({ titre1, titre2, titre3 }) {
       <div className="container mx-auto px-4  py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3">
+          <Link to="/" className="flex items-center gap-3 mr-8">
             <div className="bg-indigo-600 p-2 rounded-lg">
               <Zap className="h-6 w-6 text-white" />
             </div>
@@ -78,8 +79,24 @@ function Header({ titre1, titre2, titre3 }) {
             {isSignedIn ? (
               <>
                 {/* Menu de navigation conditionnelle */}
-
-                {/* Boutons principaux */}
+                {/* Boutons principaux */}{" "}
+                <Link to="/public-resumes">
+                  <Button
+                    variant={
+                      isActive("/public-resumes") || isActive("/pages")
+                        ? "default"
+                        : "ghost"
+                    }
+                    className={
+                      isActive("/public-resumes") || isActive("/pages")
+                        ? "bg-green-600 hover:bg-green-700 text-white"
+                        : "hover:bg-green-50 hover:text-green-700"
+                    }
+                  >
+                    <Earth className="w-4 h-4 mr-2" />
+                    Profils
+                  </Button>
+                </Link>
                 <Link to="/portfolio">
                   <Button
                     variant={isActive("/portfolio") ? "default" : "ghost"}
@@ -93,7 +110,6 @@ function Header({ titre1, titre2, titre3 }) {
                     Portfolio
                   </Button>
                 </Link>
-
                 <Link to="/dashboard">
                   <Button
                     variant={isActive("/dashboard") ? "default" : "ghost"}
@@ -107,7 +123,6 @@ function Header({ titre1, titre2, titre3 }) {
                     CV Professionnel
                   </Button>
                 </Link>
-
                 {user?.primaryEmailAddress?.emailAddress ===
                   "aymaneaziz1234@gmail.com" && (
                   <Button
@@ -119,7 +134,6 @@ function Header({ titre1, titre2, titre3 }) {
                     Admin
                   </Button>
                 )}
-
                 {/* Profil utilisateur */}
                 <div className="flex items-center gap-3 ml-4 pl-4 border-l">
                   <div className="hidden lg:block text-right">
@@ -193,6 +207,15 @@ function Header({ titre1, titre2, titre3 }) {
                 >
                   <FileText className="w-4 h-4 mr-2" />
                   CV Professionnel
+                </Button>
+              </Link>
+              <Link to="/public-resumes" onClick={() => setIsMenuOpen(false)}>
+                <Button
+                  variant={isActive("/public-resumes") ? "default" : "outline"}
+                  className="w-full justify-start"
+                >
+                  <FileText className="w-4 h-4 mr-2" />
+                  Profils
                 </Button>
               </Link>
             </div>
