@@ -77,7 +77,6 @@ function FormSection() {
 
             {isLoading && (
               <>
-                {" "}
                 <Loader2
                   className="h-4 w-4 animate-spin text-gray-500 mt-1"
                   aria-label="Chargement en cours"
