@@ -13,7 +13,6 @@ import ThemeColor from "./ThemeColor";
 import GlobalApi from "../../../../service/GlobalApi";
 import { toast } from "sonner";
 
-
 function FormSection() {
   const [activeFormIndex, setActiveFormIndex] = useState(1);
   const [enableNext, setEnableNext] = useState(true);
@@ -23,15 +22,13 @@ function FormSection() {
 
   useEffect(() => {
     const fetchVisibility = async () => {
- 
       try {
         setLoading(true);
         const response = await GlobalApi.GetMode(resumeId);
         setIsPublic(response.data.isPublic);
         setLoading(false);
-    
       } catch (error) {
-        console.error('Error fetching resume visibility:', error);
+        console.error("Error fetching resume visibility:", error);
       }
     };
 
@@ -54,8 +51,6 @@ function FormSection() {
       setLoading(false);
     }
   };
-  
-  
 
   return (
     <div>
@@ -77,17 +72,21 @@ function FormSection() {
               disabled={isLoading}
             />
             <Label htmlFor="resume-visibility">
-              {isPublic ? "Résumé public" : "Résumé privé"}
+              {isPublic ? "CV public" : "CV privé"}
             </Label>
 
             {isLoading && (
-
-              <>    <Loader2
-              className="h-4 w-4 animate-spin text-gray-500 mt-1"
-              aria-label="Chargement en cours"
-            /><span className="text-gray-500 text-sm">Chargement en cours..</span></>
-        
-          )}
+              <>
+                {" "}
+                <Loader2
+                  className="h-4 w-4 animate-spin text-gray-500 mt-1"
+                  aria-label="Chargement en cours"
+                />
+                <span className="text-gray-500 text-sm">
+                  Chargement en cours..
+                </span>
+              </>
+            )}
           </div>
         </div>
 
