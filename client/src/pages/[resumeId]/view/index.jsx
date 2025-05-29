@@ -27,8 +27,8 @@ function ResumeView() {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="w-10 h-10 border-4 border-gray-400 border-t-transparent rounded-full animate-spin"></div>
       </div>
     );
   }
@@ -79,7 +79,7 @@ function ResumeView() {
 
   return (
     <div>
-      <div className="container mx-auto py-8">
+      <div className="container mx-auto py-5">
         <Card className="p-8 max-w-4xl mx-auto">
           {/* En-tête du CV */}
           <div className="bg-gray-100 p-4 rounded-md">
@@ -101,23 +101,13 @@ function ResumeView() {
             </div>
           </div>
           <hr
-            className="border-[1.5px] my-2"
+            className="border-[1.5px] "
             style={{ borderColor: resume.themeColor }}
           />
 
           {/* Résumé */}
           {resume.summery && (
             <div className="px-2 py-1 bg-white">
-              <h3
-                className="text-sm font-bold uppercase tracking-wide text-center w-full mb-2"
-                style={{ color: resume.themeColor }}
-              >
-                Résumé
-              </h3>
-              <hr
-                className="border-[1.5px] my-2"
-                style={{ borderColor: resume.themeColor }}
-              />
               <p className="text-sm text-gray-700 leading-relaxed">
                 {resume.summery}
               </p>
@@ -142,19 +132,26 @@ function ResumeView() {
                   <h4 className="text-sm font-medium text-gray-800">
                     {exp.title}
                   </h4>
-                  <p className="text-sm text-gray-600">{exp.companyName}</p>
-                  <p className="text-xs text-gray-500">
-                    {exp.startDate} - {exp.endDate}
-                  </p>
-                  <p className="text-sm text-gray-700 mt-1">
-                    {exp.workSummery}
-                  </p>
+
+                  {/* ✅ Alignement de la date à droite */}
+                  <div className="flex justify-between text-sm text-gray-600">
+                    <p>
+                      {exp.companyName} • {exp.city}, {exp.state}
+                    </p>
+                    <p className="text-xs text-gray-500">
+                      {exp.startDate} - {exp.endDate}
+                    </p>
+                  </div>
+
+                  <p
+                    className="text-xs text-gray-700 leading-relaxed  space-y-1 rsw-ce ul  rsw-ce ol"
+                    dangerouslySetInnerHTML={{ __html: exp?.workSummery }}
+                  />
                 </div>
               ))}
             </div>
           )}
 
-          {/* Formation */}
           {resume.education && resume.education.length > 0 && (
             <div className="px-2 py-1 bg-white">
               <h3
@@ -172,12 +169,17 @@ function ResumeView() {
                   <h4 className="text-sm font-medium text-gray-800">
                     {edu.universityName}
                   </h4>
-                  <p className="text-sm text-gray-600">
-                    {edu.degree} en {edu.major}
-                  </p>
-                  <p className="text-xs text-gray-500">
-                    {edu.startDate} - {edu.endDate}
-                  </p>
+
+                  {/* ✅ Ligne avec diplôme à gauche, dates à droite */}
+                  <div className="flex justify-between text-sm text-gray-600">
+                    <p>
+                      {edu.degree} en {edu.major}
+                    </p>
+                    <p className="text-xs text-gray-500">
+                      {edu.startDate} - {edu.endDate}
+                    </p>
+                  </div>
+
                   <p className="text-sm text-gray-700 mt-1">
                     {edu.description}
                   </p>
