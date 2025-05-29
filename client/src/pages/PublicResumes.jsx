@@ -3,20 +3,23 @@ import { Link } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Eye, FileText, Briefcase } from "lucide-react";
+import { Eye, FileText, Briefcase, Search } from "lucide-react";
 import GlobalApi from "../../service/GlobalApi";
 import Header from "@/components/custom/Header";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
 
 function PublicResumes() {
   const [resumes, setResumes] = useState([]);
   const [portfolios, setPortfolios] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [activeTab, setActiveTab] = useState("resumes");
 
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        // Fetch both data sets in parallel
         const [resumesResponse, portfoliosResponse] = await Promise.all([
           GlobalApi.GetPublicResumes(),
           GlobalApi.GetPublicPortfolios(),
@@ -33,6 +36,27 @@ function PublicResumes() {
 
     fetchData();
   }, []);
+
+  const filteredResumes = resumes.filter((resume) => {
+    const searchLower = searchQuery.toLowerCase();
+    return (
+      resume.title?.toLowerCase().includes(searchLower) ||
+      resume.firstName?.toLowerCase().includes(searchLower) ||
+      resume.lastName?.toLowerCase().includes(searchLower) ||
+      resume.jobTitle?.toLowerCase().includes(searchLower) ||
+      resume.summery?.toLowerCase().includes(searchLower)
+    );
+  });
+
+  const filteredPortfolios = portfolios.filter((portfolio) => {
+    const searchLower = searchQuery.toLowerCase();
+    return (
+      portfolio.title?.toLowerCase().includes(searchLower) ||
+      portfolio.fullName?.toLowerCase().includes(searchLower) ||
+      portfolio.jobTitle?.toLowerCase().includes(searchLower) ||
+      portfolio.bio?.toLowerCase().includes(searchLower)
+    );
+  });
 
   if (loading) {
     return (
@@ -58,7 +82,7 @@ function PublicResumes() {
           Chercheurs d'emploi
         </h1>
 
-        <Tabs defaultValue="resumes" className="w-full">
+        <Tabs defaultValue="resumes" className="w-full" onValueChange={setActiveTab}>
           <TabsList className="grid w-full grid-cols-2 mb-8 bg-white/80 backdrop-blur-sm">
             <TabsTrigger
               value="resumes"
@@ -76,10 +100,25 @@ function PublicResumes() {
             </TabsTrigger>
           </TabsList>
 
+          <div className="mb-6">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+              <Input
+                type="text"
+                placeholder={`Rechercher dans les ${
+                  activeTab === "resumes" ? "CV" : "portfolios"
+                }...`}
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-10 bg-white/80 backdrop-blur-sm"
+              />
+            </div>
+          </div>
+
           <TabsContent value="resumes" className="mt-6">
-            {resumes.length > 0 ? (
+            {filteredResumes.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {resumes.map((resume) => (
+                {filteredResumes.map((resume) => (
                   <Card
                     key={resume.resumeID}
                     className="p-6 hover:shadow-lg transition-all duration-200 hover:scale-105 bg-white/80 backdrop-blur-sm"
@@ -101,6 +140,20 @@ function PublicResumes() {
                         </p>
                       )}
 
+                      {resume.skills && resume.skills.length > 0 && (
+                        <div className="flex flex-wrap gap-2 mb-4">
+                          {resume.skills.map((skill) => (
+                            <Badge
+                              key={skill.name}
+                              variant="outline"
+                              className="bg-green-50 text-green-700"
+                            >
+                              {skill.name}
+                            </Badge>
+                          ))}
+                        </div>
+                      )}
+
                       <div className="mt-auto pt-4">
                         <Link to={`/pages/${resume.resumeID}/view`}>
                           <Button className="w-full bg-green-600 hover:bg-green-700 transition-colors">
@@ -119,9 +172,9 @@ function PublicResumes() {
           </TabsContent>
 
           <TabsContent value="portfolios" className="mt-6">
-            {portfolios.length > 0 ? (
+            {filteredPortfolios.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {portfolios.map((portfolio) => (
+                {filteredPortfolios.map((portfolio) => (
                   <Card
                     key={portfolio.portfolioID}
                     className="p-6 hover:shadow-lg transition-all duration-200 hover:scale-105 bg-white/80 backdrop-blur-sm"
@@ -143,10 +196,22 @@ function PublicResumes() {
                         </p>
                       )}
 
+                      {portfolio.skillsPortfolio && portfolio.skillsPortfolio.length > 0 && (
+                        <div className="flex flex-wrap gap-2 mb-4">
+                          {portfolio.skillsPortfolio.map((skill) => (
+                            <Badge
+                              key={skill.name}
+                              variant="outline"
+                              className="bg-green-50 text-green-700"
+                            >
+                              {skill.name}
+                            </Badge>
+                          ))}
+                        </div>
+                      )}
+
                       <div className="mt-auto pt-4">
-                        <Link
-                          to={`/my-portfolio/${portfolio.portfolioID}/view`}
-                        >
+                        <Link to={`/my-portfolio/${portfolio.portfolioID}/view`}>
                           <Button className="w-full bg-green-600 hover:bg-green-700 transition-colors">
                             <Eye className="mr-2 h-4 w-4" />
                             Voir le Portfolio

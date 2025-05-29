@@ -231,7 +231,7 @@ class AdminPortfolioController extends AbstractController
         if ($request->isMethod('POST')) {
             $experience->setTitle($request->request->get('title'));
             $experience->setCompany($request->request->get('company'));
-            $experience->setStartDate(new \DateTime($request->request->get('startDate')));
+            $experience->setStartDate($request->request->get('startDate'));
             $experience->setEndDate($request->request->get('endDate') ? new \DateTime($request->request->get('endDate')) : null);
             $experience->setCurrent($request->request->get('current') ? true : false);
             $experience->setDescription($request->request->get('description'));
@@ -297,7 +297,7 @@ class AdminPortfolioController extends AbstractController
         if ($request->isMethod('POST')) {
             $education->setDegree($request->request->get('degree'));
             $education->setInstitution($request->request->get('institution'));
-            $education->setStartDate(new \DateTime($request->request->get('startDate')));
+            $education->setStartDate($request->request->get('startDate'));
             $education->setEndDate($request->request->get('endDate') ? new \DateTime($request->request->get('endDate')) : null);
             $education->setCurrent($request->request->get('current') ? true : false);
 
@@ -426,7 +426,7 @@ class AdminPortfolioController extends AbstractController
         if ($request->isMethod('POST')) {
             $certificate->setName($request->request->get('name'));
             $certificate->setIssuer($request->request->get('issuer'));
-            $certificate->setDate(new \DateTime($request->request->get('date')));
+            $certificate->setDate($request->request->get('date'));
             $certificate->setUrl($request->request->get('url'));
 
             $this->entityManager->flush();
