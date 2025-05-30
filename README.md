@@ -11,13 +11,21 @@ ProfilePro est une plateforme web intelligente qui aide les utilisateurs à cré
 https://github.com/user-attachments/assets/08930538-875b-4e9f-9aed-9f9a7ebd132a
 
 
+## 🎥 Démo : Page des CV et portfolios publics
+
+https://github.com/user-attachments/assets/4d80648c-c1f2-4371-911b-efcd53fd3d07
+
+
 ## 🎥 Démo : Page des portfolios	 
 
-https://github.com/user-attachments/assets/5463348f-50e4-4835-8bbe-212bc9bed6a5
+https://github.com/user-attachments/assets/47e2f601-a615-4515-828c-18001fa6e0f0
+
 
 
 ## 🎥 Démo : Page des CV professionnels	
-https://github.com/user-attachments/assets/5952675c-aef5-4f2c-a7ce-d28c3c4bc235
+
+https://github.com/user-attachments/assets/effa463b-0446-4644-8032-6fb7f63f526d
+
 
 
 ## 🎥 Démo : Espace administrateur	
