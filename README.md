@@ -21,11 +21,9 @@ https://github.com/user-attachments/assets/4d80648c-c1f2-4371-911b-efcd53fd3d07
 https://github.com/user-attachments/assets/47e2f601-a615-4515-828c-18001fa6e0f0
 
 
-
 ## 🎥 Démo : Page des CV professionnels	
 
 https://github.com/user-attachments/assets/effa463b-0446-4644-8032-6fb7f63f526d
-
 
 
 ## 🎥 Démo : Espace administrateur	
