@@ -208,6 +208,7 @@ class UserResumeController extends AbstractController
         // Formatage personnalisé du résumé avec ses relations
         $data = [
             'resumeID' => $resume->getResumeID(),
+            'title'=>$resume->getTitle(),
             'firstName' => $resume->getFirstName(),
             'lastName' => $resume->getLastName(),
             'jobTitle'=>$resume->getJobTitle(),

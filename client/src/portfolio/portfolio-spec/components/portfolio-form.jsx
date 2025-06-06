@@ -108,6 +108,10 @@ export default function PortfolioForm({ onSubmit, initialData }) {
   const params = useParams();
   const navigate = useNavigate();
   const [isPublic, setIsPublic] = useState(false);
+  const [aiGeneratedSkills, setAiGeneratedSkills] = useState([]);
+  const [isLoadingSkills, setIsLoadingSkills] = useState(false);
+  const [aiGeneratedJobTitles, setAiGeneratedJobTitles] = useState([]);
+  const [isLoadingJobTitles, setIsLoadingJobTitles] = useState(false);
 
   useEffect(() => {
     if (params?.portfolioId) {
@@ -544,6 +548,122 @@ export default function PortfolioForm({ onSubmit, initialData }) {
       setIsLoading(false);
     }
   };
+
+  // IA prompt pour les compétences
+  const skillsPrompt = "Titre du poste : {jobTitle}. Sur la base de ce titre, donne-moi un tableau JSON avec 14 suggestions de compétences très demandées dans ce domaine. Chaque élément doit inclure : 'skills' et 'description'. Retourne uniquement le tableau, sans enveloppe d'objet.";
+
+  // Appel IA pour les suggestions de compétences
+  useEffect(() => {
+    const fetchAISkillsSuggestions = async () => {
+      if (!formData.jobTitle) return;
+
+      setIsLoadingSkills(true);
+      const PROMPT = skillsPrompt.replace("{jobTitle}", formData.jobTitle);
+
+      try {
+        const result = await AIChatSession.sendMessage(PROMPT);
+        const textResponse = await result.response.text();
+        let parsedResponse;
+        
+        try {
+          parsedResponse = JSON.parse(textResponse);
+        } catch (parseError) {
+          parsedResponse = textResponse.split('\n')
+            .filter(line => line.trim())
+            .map(line => {
+              try {
+                return JSON.parse(line);
+              } catch {
+                return null;
+              }
+            })
+            .filter(item => item !== null);
+        }
+
+        if (Array.isArray(parsedResponse)) {
+          setAiGeneratedSkills(parsedResponse);
+        } else {
+          toast.error("La réponse de l'IA n'est pas au format attendu.");
+        }
+      } catch (err) {
+        console.error("Erreur de parsing :", err);
+        toast.error("Erreur lors de la récupération des suggestions.");
+      } finally {
+        setIsLoadingSkills(false);
+      }
+    };
+
+    fetchAISkillsSuggestions();
+  }, [formData.jobTitle]);
+
+  // Ajouter une compétence depuis IA
+  const handleSkillSuggestionClick = (skill) => {
+    if (formData.skillsPortfolio.some((s) => s.name === skill.skills)) return;
+
+    setFormData((prev) => ({
+      ...prev,
+      skillsPortfolio: [
+        ...prev.skillsPortfolio,
+        { id: uuidv4(), name: skill.skills, level: 3 },
+      ],
+    }));
+  };
+
+  // IA prompt pour les titres de poste
+  const jobTitlePrompt = "Titre du portfolio : {title}. Sur la base de ce titre, donne-moi un tableau JSON avec 6 suggestions de titres de poste pertinents. Chaque élément doit inclure : 'title' et 'description'. Retourne uniquement le tableau, sans enveloppe d'objet.";
+
+  // Appel IA pour les suggestions de titres de poste
+  useEffect(() => {
+    const fetchAIJobTitleSuggestions = async () => {
+      if (!formData.title) return;
+
+      setIsLoadingJobTitles(true);
+      const PROMPT = jobTitlePrompt.replace("{title}", formData.title);
+
+      try {
+        const result = await AIChatSession.sendMessage(PROMPT);
+        const textResponse = await result.response.text();
+        let parsedResponse;
+        
+        try {
+          parsedResponse = JSON.parse(textResponse);
+        } catch (parseError) {
+          parsedResponse = textResponse.split('\n')
+            .filter(line => line.trim())
+            .map(line => {
+              try {
+                return JSON.parse(line);
+              } catch {
+                return null;
+              }
+            })
+            .filter(item => item !== null);
+        }
+
+        if (Array.isArray(parsedResponse)) {
+          setAiGeneratedJobTitles(parsedResponse);
+        } else {
+          toast.error("La réponse de l'IA n'est pas au format attendu.");
+        }
+      } catch (err) {
+        console.error("Erreur de parsing :", err);
+        toast.error("Erreur lors de la récupération des suggestions.");
+      } finally {
+        setIsLoadingJobTitles(false);
+      }
+    };
+
+    fetchAIJobTitleSuggestions();
+  }, [formData.title]);
+
+  // Ajouter un titre de poste depuis IA
+  const handleJobTitleSuggestionClick = (suggestion) => {
+    setFormData((prev) => ({
+      ...prev,
+      jobTitle: suggestion.title,
+    }));
+  };
+
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
       <header className="bg-white rounded-lg shadow">
@@ -647,6 +767,34 @@ export default function PortfolioForm({ onSubmit, initialData }) {
                 />
               </div>
             </div>
+
+            {aiGeneratedJobTitles.length > 0 && (
+              <div className="mt-4">
+                <h3 className="text-lg font-medium text-gray-900 mb-4">
+                  Suggestions de titres professionnels pour <b>{formData.title}</b>
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {aiGeneratedJobTitles.map((suggestion, index) => (
+                    <div
+                      key={index}
+                      onClick={() => handleJobTitleSuggestionClick(suggestion)}
+                      className="p-4 shadow-md rounded-md border hover:bg-gray-100 cursor-pointer transition"
+                    >
+                      <p className="font-semibold text-primary">{suggestion.title}</p>
+                      <p className="text-sm text-gray-600 mt-1">
+                        {suggestion.description || "Aucune description fournie."}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+            {isLoadingJobTitles && (
+              <div className="mt-4 flex items-center justify-center p-4 border rounded-lg">
+                <LoaderCircle className="animate-spin h-6 w-6 text-primary mr-2" />
+                <span className="text-gray-600">Chargement des suggestions...</span>
+              </div>
+            )}
 
             <div>
               <label className="block text-sm font-medium text-gray-700">
@@ -814,39 +962,62 @@ export default function PortfolioForm({ onSubmit, initialData }) {
                       onChange={(e) =>
                         updateSkill(skill.id, "name", e.target.value)
                       }
-                      placeholder="ex: JavaScript, Design UI, etc."
-                      className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      placeholder="Nom de la compétence"
                     />
                   </div>
-                  <div className="w-32">
-                    <Select
-                      value={String(skill.level)}
-                      onValueChange={(value) =>
-                        updateSkill(skill.id, "level", Number.parseInt(value))
-                      }
-                    >
-                      <SelectTrigger className="w-[140px]">
-                        <SelectValue placeholder="Niveau" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="1">Débutant</SelectItem>
-                        <SelectItem value="2">Intermédiaire</SelectItem>
-                        <SelectItem value="3">Avancé</SelectItem>
-                        <SelectItem value="4">Expert</SelectItem>
-                        <SelectItem value="5">Maître</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
+                  <Select
+                    value={skill.level.toString()}
+                    onValueChange={(value) => updateSkill(skill.id, "level", parseInt(value))}
+                  >
+                    <SelectTrigger className="w-[180px]">
+                      <SelectValue placeholder="Niveau" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="1">Débutant</SelectItem>
+                      <SelectItem value="2">Intermédiaire</SelectItem>
+                      <SelectItem value="3">Avancé</SelectItem>
+                      <SelectItem value="4">Expert</SelectItem>
+                      <SelectItem value="5">Maître</SelectItem>
+                    </SelectContent>
+                  </Select>
                   <Button
                     type="button"
                     onClick={() => removeSkill(skill.id)}
-                    className="inline-flex items-center  bg-accent p-1.5 border border-transparent rounded-md text-red-600 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                    className="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-md text-red-700 bg-accent hover:bg-red-200"
                   >
-                    <Trash2 className="h-4 w-4" />
+                    <Trash2 className="h-4 w-4 mr-1" /> Supprimer
                   </Button>
                 </div>
               ))}
             </div>
+
+            {aiGeneratedSkills.length > 0 && (
+              <div className="mt-8">
+                <h3 className="text-lg font-medium text-gray-900 mb-4">
+                  Suggestions de compétences pour <b>{formData.jobTitle}</b>
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {aiGeneratedSkills.map((skill, index) => (
+                    <div
+                      key={index}
+                      onClick={() => handleSkillSuggestionClick(skill)}
+                      className="p-4 shadow-md rounded-md border hover:bg-gray-100 cursor-pointer transition"
+                    >
+                      <p className="font-semibold text-primary">{skill.skills}</p>
+                      <p className="text-sm text-gray-600 mt-1">
+                        {skill.description || "Aucune description fournie."}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+            {isLoadingSkills && (
+              <div className="mt-4 flex items-center justify-center p-4 border rounded-lg">
+                <LoaderCircle className="animate-spin h-6 w-6 text-primary mr-2" />
+                <span className="text-gray-600">Chargement des suggestions...</span>
+              </div>
+            )}
           </div>
         </TabsContent>
 
