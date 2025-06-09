@@ -365,7 +365,7 @@ const handleProfilePictureUrl = (e) => {
     }));
   };
 
- const handleProjectImageChange = async (id, e) => {
+ const handleProjectImageChange = async (e) => {
  const file = e.target.files[0];
   if (file) {
     const formData = new FormData();
@@ -1500,7 +1500,7 @@ const handleProfilePictureUrl = (e) => {
                         <Input
                           type="file"
                           accept="image/*"
-                          onChange={(e) => handleProjectImageChange(proj.id, e)}
+                          onChange={handleProjectImageChang}
                           className="block w-full text-sm text-gray-500 file:mr-4 f file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 cursor-pointer"
                         />
                       </div>
