@@ -18,6 +18,8 @@ import {
   Zap,
   ZapIcon,
 } from "lucide-react";
+import { GitHubIcon, InstagramIcon, LinkedInIcon, TwitterIcon, FacebookIcon } from 'lucide-react';
+import LogoSeomaniak from './public/Seomaniak2025.png';
 import { Link, useNavigate } from "react-router-dom";
 import Contact from "@/components/contact/Contact";
 
@@ -267,182 +269,118 @@ export default function LandingPage() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-gray-200 text-gray-900 py-12">
-      <div className="container mx-auto px-6 md:px-12">
-        <div className="flex flex-col md:flex-row justify-between gap-10 md:gap-20">
-
-          {/* Logo & Description */}
-          <div className="md:w-1/4">
-            <img
-              src="/Seomaniak2025.png"
-              alt="Seomaniak Oujda Logo"
-              className="mb-4 w-36"
-            />
-            <p className="text-gray-400 leading-relaxed">
-              Seomaniak Oujda, votre partenaire digital pour un avenir numérique innovant.
-            </p>
-
-            {/* Réseaux sociaux */}
-            <div className="flex space-x-5 mt-6">
-              <a
-                href="https://www.facebook.com/seomaniakoujda"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Facebook"
-                className="hover:text-blue-600 transition-colors"
-              >
-                {/* Facebook SVG */}
-                <svg
-                  className="w-6 h-6 fill-current"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M22.675 0h-21.35C.597 0 0 .593 0 1.326v21.348C0 23.406.597 24 1.325 24H12.82v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.894-4.788 4.659-4.788 1.325 0 2.464.099 2.796.143v3.24l-1.918.001c-1.504 0-1.796.715-1.796 1.763v2.31h3.59l-.467 3.622h-3.123V24h6.116c.728 0 1.325-.594 1.325-1.326V1.326C24 .593 23.403 0 22.675 0z" />
-                </svg>
-              </a>
-              <a
-                href="https://twitter.com/seomaniakoujda"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Twitter"
-                className="hover:text-blue-400 transition-colors"
-              >
-                {/* Twitter SVG */}
-                <svg
-                  className="w-6 h-6 fill-current"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M24 4.557a9.83 9.83 0 01-2.828.775 4.932 4.932 0 002.165-2.724 9.864 9.864 0 01-3.127 1.195 4.916 4.916 0 00-8.374 4.482A13.94 13.94 0 011.671 3.149a4.916 4.916 0 001.523 6.556 4.897 4.897 0 01-2.228-.616c-.054 2.281 1.581 4.415 3.949 4.89a4.935 4.935 0 01-2.224.084 4.919 4.919 0 004.588 3.417A9.867 9.867 0 010 21.54a13.9 13.9 0 007.548 2.212c9.058 0 14.009-7.512 14.009-14.01 0-.213-.004-.425-.014-.636A10.012 10.012 0 0024 4.557z" />
-                </svg>
-              </a>
-              <a
-                href="https://www.linkedin.com/company/seomaniakoujda"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="LinkedIn"
-                className="hover:text-blue-700 transition-colors"
-              >
-                {/* LinkedIn SVG */}
-                <svg
-                  className="w-6 h-6 fill-current"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M19 0h-14c-2.762 0-5 2.238-5 5v14c0 2.762 2.238 5 5 5h14c2.763 0 5-2.238 5-5v-14c0-2.762-2.237-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.268c-.966 0-1.75-.787-1.75-1.758 0-.97.784-1.757 1.75-1.757s1.75.786 1.75 1.757c0 .971-.784 1.758-1.75 1.758zm13.5 11.268h-3v-5.604c0-1.337-.026-3.064-1.867-3.064-1.867 0-2.154 1.459-2.154 2.963v5.705h-3v-10h2.879v1.367h.041c.401-.758 1.379-1.556 2.838-1.556 3.034 0 3.596 2.  .238 3.596 5.467v5.722z" />
-                </svg>
-              </a>
-            </div>
+      <footer className="w-full border-t bg-white py-12">
+    <div className="container mx-auto px-4 md:px-6">
+      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+        <div className="space-y-4">
+          <div className="flex items-center gap-2">
+            <img src={LogoSeomaniak} alt="Seomaniak2025" className="h-8" />
+            <span className="text-xl font-bold text-primary">Seomaniak Oujda</span>
           </div>
-
-          {/* Liens utiles */}
-          <div className="md:w-1/5">
-            <h3 className="text-xl font-semibold mb-4 text-white">Liens utiles</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link
-                  to="/about"
-                  className="hover:text-white transition-colors"
-                >
-                  À propos
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/contact"
-                  className="hover:text-white transition-colors"
-                >
-                  Contact
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/pricing"
-                  className="hover:text-white transition-colors"
-                >
-                  Tarifs
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/blog"
-                  className="hover:text-white transition-colors"
-                >
-                  Blog
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Politique */}
-          <div className="md:w-1/5">
-            <h3 className="text-xl font-semibold mb-4 text-white">Politique</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link
-                  to="/terms"
-                  className="hover:text-white transition-colors"
-                >
-                  Conditions d'utilisation
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/privacy"
-                  className="hover:text-white transition-colors"
-                >
-                  Politique de confidentialité
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/cookies"
-                  className="hover:text-white transition-colors"
-                >
-                  Politique des cookies
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Support */}
-          <div className="md:w-1/5">
-            <h3 className="text-xl font-semibold mb-4 text-white">Support</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link
-                  to="/faq"
-                  className="hover:text-white transition-colors"
-                >
-                  FAQ
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/help"
-                  className="hover:text-white transition-colors"
-                >
-                  Aide
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/support"
-                  className="hover:text-white transition-colors"
-                >
-                  Contact support
-                </Link>
-              </li>
-            </ul>
+          <p className="text-sm text-muted-foreground">
+            Créez de nouvelles perspectives de développement pour votre entreprise grâce à Seomaniak, en optimisant votre présence en ligne.
+          </p>
+          <div className="flex gap-4">
+            <a href="https://www.facebook.com/SeoManiakMaroc" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground">
+              <FacebookIcon className="h-5 w-5" />
+              <span className="sr-only">Facebook</span>
+            </a>
+            <a href="https://twitter.com/SeoManiakMaroc" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground">
+              <TwitterIcon className="h-5 w-5" />
+              <span className="sr-only">Twitter</span>
+            </a>
+            <a href="https://www.instagram.com/seomaniak.ma/" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground">
+              <InstagramIcon className="h-5 w-5" />
+              <span className="sr-only">Instagram</span>
+            </a>
+            <a href="https://github.com/Seomaniak" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground">
+              <GitHubIcon className="h-5 w-5" />
+              <span className="sr-only">GitHub</span>
+            </a>
+            <a href="https://www.linkedin.com/company/seomaniak-maroc" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground">
+              <LinkedInIcon className="h-5 w-5" />
+              <span className="sr-only">LinkedIn</span>
+            </a>
           </div>
         </div>
-
-        {/* Bas du footer */}
-        <div className="mt-12 border-t border-gray-700 pt-6 text-center text-sm text-gray-500">
-          &copy; {new Date().getFullYear()} Seomaniak Oujda. Tous droits réservés.
+        <div className="space-y-4">
+          <h3 className="text-sm font-medium">Nos Services</h3>
+          <ul className="space-y-2 text-sm">
+            <li>
+              <a href="https://seomaniak.ma/agence-web/oujda/" className="text-muted-foreground hover:text-foreground">
+                Développement Web
+              </a>
+            </li>
+            <li>
+              <a href="https://seomaniak.ma/agence-web/oujda/" className="text-muted-foreground hover:text-foreground">
+                Référencement SEO
+              </a>
+            </li>
+            <li>
+              <a href="https://seomaniak.ma/agence-web/oujda/" className="text-muted-foreground hover:text-foreground">
+                Marketing Digital
+              </a>
+            </li>
+            <li>
+              <a href="https://seomaniak.ma/agence-web/oujda/" className="text-muted-foreground hover:text-foreground">
+                Création d'Identité Visuelle
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div className="space-y-4">
+          <h3 className="text-sm font-medium">Ressources</h3>
+          <ul className="space-y-2 text-sm">
+            <li>
+              <a href="https://seomaniak.ma/blog/" className="text-muted-foreground hover:text-foreground">
+                Blog
+              </a>
+            </li>
+            <li>
+              <a href="https://seomaniak.ma/blog/" className="text-muted-foreground hover:text-foreground">
+                Conseils CV
+              </a>
+            </li>
+            <li>
+              <a href="https://seomaniak.ma/blog/" className="text-muted-foreground hover:text-foreground">
+                Tendances du recrutement
+              </a>
+            </li>
+            <li>
+              <a href="https://seomaniak.ma/blog/" className="text-muted-foreground hover:text-foreground">
+                Tutoriels
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div className="space-y-4">
+          <h3 className="text-sm font-medium">Entreprise</h3>
+          <ul className="space-y-2 text-sm">
+            <li>
+              <a href="https://seomaniak.ma/agence-web/oujda/" className="text-muted-foreground hover:text-foreground">
+                À propos
+              </a>
+            </li>
+            <li>
+              <a href="https://seomaniak.ma/agence-web/oujda/" className="text-muted-foreground hover:text-foreground">
+                Carrières
+              </a>
+            </li>
+            <li>
+              <a href="https://seomaniak.ma/agence-web/oujda/" className="text-muted-foreground hover:text-foreground">
+                Contact
+              </a>
+            </li>
+            <li>
+              <a href="https://seomaniak.ma/agence-web/oujda/" className="text-muted-foreground hover:text-foreground">
+                Partenaires
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
-    </footer>
+    </div>
+  </footer>
     </div>
   );
 }
