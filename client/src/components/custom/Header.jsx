@@ -224,7 +224,7 @@ function Header({ titre1, titre2, titre3 }) {
                   <Button
                     onClick={handleClick}
                     variant={"ghost"}
-                    className={"hover:bg-blue-50 hover:text-indigo-700"}
+                    className="w-full justify-start"
                   >
                     <UserCogIcon className="w-4 h-4 mr-2" />
                     Admin

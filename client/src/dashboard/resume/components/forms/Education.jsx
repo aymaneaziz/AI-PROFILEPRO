@@ -160,7 +160,7 @@ function Education() {
           </Button>
         </div>
         <Button disabled={loading} onClick={() => onSave()}>
-          {loading ? <LoaderCircle className="animate-spin" /> : "Save"}
+          {loading ? <LoaderCircle className="animate-spin" /> : "Enregistrer"}
         </Button>
       </div>
     </div>
