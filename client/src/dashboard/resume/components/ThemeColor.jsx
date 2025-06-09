@@ -53,31 +53,29 @@ function ThemeColor() {
   };
 
   return (
+   
     <Popover>
-      <PopoverTrigger asChild>
-        <Button variant="outline" size="sm" className="flex gap-2">
-          <LayoutGrid /> Thème
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent>
-        <h2 className="mb-2 text-sm font-bold">Choisir la couleur du thème</h2>
-        <div className="grid grid-cols-5 gap-3">
-          {colors.map((item, index) => (
-            <div
-              key={index}
-              onClick={() => onColorSelect(item)}
-              className={`h-5 w-5 rounded-full cursor-pointer
-             hover:border-black border
-             ${selectedColor === item && "border border-black"}
-             `}
-              style={{
-                background: item,
-              }}
-            ></div>
-          ))}
-        </div>
-      </PopoverContent>
-    </Popover>
+  <PopoverTrigger asChild>
+    <Button variant="outline" size="sm" className="flex gap-2">
+      <LayoutGrid /> Theme
+    </Button>
+  </PopoverTrigger>
+  <PopoverContent className="z-50">
+    <h2 className="mb-2 text-sm font-bold">Choisir la couleur du thème</h2>
+    <div className="grid grid-cols-5 gap-3">
+      {colors.map((item, index) => (
+        <div
+          key={index}
+          onClick={() => onColorSelect(item)}
+          className={`h-5 w-5 rounded-full cursor-pointer hover:border-black border
+           ${selectedColor === item ? "border-black" : "border-transparent"}`}
+          style={{ background: item }}
+        />
+      ))}
+    </div>
+  </PopoverContent>
+</Popover>
+
   );
 }
 
