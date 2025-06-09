@@ -146,40 +146,39 @@ export default function PortfolioForm({ onSubmit, initialData }) {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
+const handleProfilePictureChange = async (e) => { 
+  const file = e.target.files[0];
+  if (file) {
+    const formData = new FormData();
+    formData.append("image", file);
 
-  const handleProfilePictureChange = async (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const formData = new FormData();
-      formData.append("image", file);
-
-      try {
-        const response = await fetch(
-          "https://pfestageai-profilepro-production.up.railway.app/api/upload/image",
-          {
-            method: "POST",
-            body: formData,
-          }
-        );
-
-        const result = await response.json();
-
-        if (result.success) {
-          setFormData((prev) => ({ ...prev, profilePicture: result.url }));
-          toast.success("Image de profil mise à jour avec succès");
-        } else {
-          toast.error("Erreur lors du téléchargement de l'image: " + (result.message || ''));
+    try {
+      const response = await fetch(
+        "https://pfestageai-profilepro-production.up.railway.app/UploadImage/upload-resume.php",  // URL publique Symfony ici
+        {
+          method: "POST",
+          body: formData,
         }
-      } catch (error) {
-        toast.error("Erreur réseau : " + error.message);
-      }
-    }
-  };
+      );
 
-  const handleProfilePictureUrl = (e) => {
-    const { value } = e.target;
-    setFormData((prev) => ({ ...prev, profilePicture: value }));
-  };
+      const result = await response.json();
+
+      if (result.success) {
+        setFormData((prev) => ({ ...prev, profilePicture: result.url }));
+      } else {
+        alert("Erreur lors du téléchargement de l'image: " + (result.message || ''));
+      }
+    } catch (error) {
+      alert("Erreur réseau : " + error.message);
+    }
+  }
+};
+
+const handleProfilePictureUrl = (e) => {
+  const { value } = e.target;
+  setFormData((prev) => ({ ...prev, profilePicture: value }));
+};
+
 
   // Skills handlers
   const addSkill = () => {
@@ -366,39 +365,35 @@ export default function PortfolioForm({ onSubmit, initialData }) {
     }));
   };
 
-  const handleProjectImageChange = async (e, projectId) => {
-    const file = e.target.files[0];
-    if (file) {
-      const formData = new FormData();
-      formData.append("image", file);
+ const handleProjectImageChange = async (e) => {
+ const file = e.target.files[0];
+  if (file) {
+    const formData = new FormData();
+    formData.append("image", file);
 
-      try {
-        const response = await fetch(
-          "https://pfestageai-profilepro-production.up.railway.app/api/upload/image",
-          {
-            method: "POST",
-            body: formData,
-          }
-        );
-
-        const result = await response.json();
-
-        if (result.success) {
-          setFormData((prev) => ({
-            ...prev,
-            projectsPortfolio: prev.projectsPortfolio.map((proj) =>
-              proj.id === projectId ? { ...proj, image: result.url } : proj
-            ),
-          }));
-          toast.success("Image du projet mise à jour avec succès");
-        } else {
-          toast.error("Erreur lors du téléchargement de l'image: " + (result.message || ''));
+    try {
+      const response = await fetch(
+        "https://pfestageai-profilepro-production.up.railway.app/UploadImage/upload-resume.php",  // URL publique Symfony ici
+        {
+          method: "POST",
+          body: formData,
         }
-      } catch (error) {
-        toast.error("Erreur réseau : " + error.message);
+      );
+
+      const result = await response.json();
+
+      if (result.success) {
+        setFormData((prev) => ({ ...prev, profilePicture: result.url }));
+      } else {
+        alert("Erreur lors du téléchargement de l'image: " + (result.message || ''));
       }
+    } catch (error) {
+      alert("Erreur réseau : " + error.message);
     }
-  };
+  }
+
+};
+
 
   const removeProject = (id) => {
     setFormData((prev) => ({
@@ -1505,7 +1500,7 @@ export default function PortfolioForm({ onSubmit, initialData }) {
                         <Input
                           type="file"
                           accept="image/*"
-                          onChange={(e) => handleProjectImageChange(e, proj.id)}
+                          onChange={handleProjectImageChange}
                           className="block w-full text-sm text-gray-500 file:mr-4 f file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 cursor-pointer"
                         />
                       </div>
