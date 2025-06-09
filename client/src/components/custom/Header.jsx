@@ -148,7 +148,7 @@ function Header({ titre1, titre2, titre3 }) {
                 </div>
               </>
             ) : (
-              <Link to="/auth/sign-in">
+              <Link to="/auth/sign-up">
                 <Button className="bg-indigo-600 hover:bg-indigo-700 hover:to-purple-700 text-white">
                   <User className="w-4 h-4 mr-2" />
                   Se connecter
@@ -218,9 +218,21 @@ function Header({ titre1, titre2, titre3 }) {
                   Profils
                 </Button>
               </Link>
+                  
+                {user?.primaryEmailAddress?.emailAddress ===
+                  "aymaneaziz1234@gmail.com" && (
+                  <Button
+                    onClick={handleClick}
+                    variant={"ghost"}
+                    className={"hover:bg-blue-50 hover:text-indigo-700"}
+                  >
+                    <UserCogIcon className="w-4 h-4 mr-2" />
+                    Admin
+                  </Button>
+                )}
             </div>
           ) : (
-            <Link to="/auth/sign-in" onClick={() => setIsMenuOpen(false)}>
+            <Link to="/auth/sign-up" onClick={() => setIsMenuOpen(false)}>
               <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white">
                 <User className="w-4 h-4 mr-2" />
                 Se connecter

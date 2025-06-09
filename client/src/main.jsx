@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import SignInPage from "./auth/sign-in/index.jsx";
+import SignUpPage from "./auth/sign-up/index.jsx";
 import Dashboard from "./dashboard/index.jsx";
 import Home from "./home/index.jsx";
 import { ClerkProvider } from "@clerk/clerk-react";
@@ -59,8 +59,8 @@ const router = createBrowserRouter([
     element: <LandingPage />,
   },
   {
-    path: "/auth/sign-in",
-    element: <SignInPage />,
+    path: "/auth/sign-up",
+    element: <SignUpPage />,
   },
 
   {
