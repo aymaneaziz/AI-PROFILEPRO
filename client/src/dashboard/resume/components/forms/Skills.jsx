@@ -83,21 +83,22 @@ function Skills() {
         const result = await AIChatSession.sendMessage(PROMPT);
         const textResponse = await result.response.text();
         let parsedResponse;
-        
+
         try {
           parsedResponse = JSON.parse(textResponse);
         } catch (parseError) {
           // Si la réponse n'est pas un JSON valide, on essaie de la traiter comme un tableau
-          parsedResponse = textResponse.split('\n')
-            .filter(line => line.trim())
-            .map(line => {
+          parsedResponse = textResponse
+            .split("\n")
+            .filter((line) => line.trim())
+            .map((line) => {
               try {
                 return JSON.parse(line);
               } catch {
                 return null;
               }
             })
-            .filter(item => item !== null);
+            .filter((item) => item !== null);
         }
 
         if (Array.isArray(parsedResponse)) {
