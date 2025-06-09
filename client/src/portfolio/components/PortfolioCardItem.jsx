@@ -106,7 +106,7 @@ function PortfolioCardItem({ portfolio, refreshData }) {
               data={{
                 text: "Hello Everyone, This is my resume please open url to see it",
                 url:
-                  import.meta.env.VITE_BASE_URL +
+            
                   "/my-portfolio/" +
                   portfolio.portfolioID +
                   "/view",
