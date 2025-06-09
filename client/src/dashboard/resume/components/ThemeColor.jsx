@@ -5,6 +5,7 @@ import { ResumeInfoContext } from "@/context/ResumeInfoContext";
 import GlobalApi from "./../../../../service/GlobalApi";
 import { useParams } from "react-router-dom";
 import { toast } from "sonner";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 function ThemeColor() {
   const colors = [
@@ -18,8 +19,6 @@ function ThemeColor() {
   const [selectedColor, setSelectedColor] = useState("");
   const { resumeId } = useParams();
 
-  const [showColors, setShowColors] = useState(false);
-
   const onColorSelect = (color) => {
     setSelectedColor(color);
     setResumeInfo({
@@ -31,26 +30,26 @@ function ThemeColor() {
         themeColor: color,
       },
     };
-    GlobalApi.UpdateResumeDetail(resumeId, data).then((resp) => {
-      console.log(resp);
+    GlobalApi.UpdateResumeDetail(resumeId, data).then(() => {
       toast("Couleur du thème mise à jour");
     });
-    setShowColors(false); // cacher les couleurs après sélection
   };
 
   return (
-    <div>
-      <Button
-        variant="outline"
-        size="sm"
-        className="flex gap-2"
-        onClick={() => setShowColors(!showColors)}
+    <Popover>
+      <PopoverTrigger>
+        <Button variant="outline" size="sm" className="flex gap-2">
+          <LayoutGrid /> Theme
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent
+        className="z-50 p-4 bg-white border rounded shadow-md"
+        side="bottom"
+        align="start"
+        forceMount={true}
       >
-        <LayoutGrid /> Theme
-      </Button>
-
-      {showColors && (
-        <div className="mt-2 grid grid-cols-5 gap-3">
+        <h2 className="mb-2 text-sm font-bold">Choisir la couleur du thème</h2>
+        <div className="grid grid-cols-5 gap-3">
           {colors.map((color, index) => (
             <div
               key={index}
@@ -62,8 +61,8 @@ function ThemeColor() {
             />
           ))}
         </div>
-      )}
-    </div>
+      </PopoverContent>
+    </Popover>
   );
 }
 
