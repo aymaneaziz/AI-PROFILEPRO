@@ -403,7 +403,7 @@ export default function PortfolioForm({ onSubmit, initialData }) {
       try {
         setIsLoading(true);
         const response = await fetch(
-          "https://pfestageai-profilepro-production.up.railway.app/UploadImage/upload-portfolio.php",  // URL publique Symfony ici
+          "https://pfestageai-profilepro-production.up.railway.app/UploadImage/upload-portfolio.php",
           {
             method: "POST",
             body: formData,
@@ -413,12 +413,19 @@ export default function PortfolioForm({ onSubmit, initialData }) {
         const result = await response.json();
 
         if (result.success) {
-          setFormData((prev) => ({ ...prev, profilePicture: result.url }));
+          setFormData((prev) => ({
+            ...prev,
+            projectsPortfolio: prev.projectsPortfolio.map((proj) =>
+              proj.id === projectId ? { ...proj, image: result.url } : proj
+            ),
+          }));
         } else {
-          alert("Erreur lors du téléchargement de l'image: " + (result.message || ''));
+          alert("Erreur lors du téléchargement de l'image: " + (result.message || 'Erreur inconnue'));
         }
       } catch (error) {
         alert("Erreur réseau : " + error.message);
+      } finally {
+        setIsLoading(false);
       }
     }
   };
@@ -1535,9 +1542,9 @@ export default function PortfolioForm({ onSubmit, initialData }) {
                       {proj.image && (
                         <div className="mt-2">
                           <img
-                            src={proj.image || "/placeholder.svg"}
-                            alt={proj.title}
-                            className="h-20 object-cover rounded border border-gray-200"
+                            src={proj.image}
+                            alt={proj.title || "Aperçu du projet"}
+                            className="h-20 w-full object-cover rounded border border-gray-200"
                           />
                         </div>
                       )}
