@@ -223,7 +223,7 @@ function Header({ titre1, titre2, titre3 }) {
                   "aymaneaziz1234@gmail.com" && (
                   <Button
                     onClick={handleClick}
-                    variant={"ghost"}
+                    variant={"outline"}
                     className="w-full justify-start"
                   >
                     <UserCogIcon className="w-4 h-4 mr-2" />
