@@ -146,39 +146,55 @@ export default function PortfolioForm({ onSubmit, initialData }) {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
-const handleProfilePictureChange = async (e) => { 
-  const file = e.target.files[0];
-  if (file) {
-    const formData = new FormData();
-    formData.append("image", file);
 
-    try {
-      const response = await fetch(
-        "https://pfestageai-profilepro-production.up.railway.app/UploadImage/upload-resume.php",  // URL publique Symfony ici
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
-
-      const result = await response.json();
-
-      if (result.success) {
-        setFormData((prev) => ({ ...prev, profilePicture: result.url }));
-      } else {
-        alert("Erreur lors du téléchargement de l'image: " + (result.message || ''));
+  const handleProfilePictureChange = async (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      // Vérification de la taille (max 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        alert("L'image ne doit pas dépasser 5MB");
+        return;
       }
-    } catch (error) {
-      alert("Erreur réseau : " + error.message);
+
+      // Vérification du type de fichier
+      const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+      if (!allowedTypes.includes(file.type)) {
+        alert("Type de fichier non autorisé. Formats acceptés : JPEG, PNG, GIF, WEBP");
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("image", file);
+
+      try {
+        setIsLoading(true);
+        const response = await fetch(
+          "https://pfestageai-profilepro-production.up.railway.app/UploadImage/upload-portfolio.php",
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
+
+        const result = await response.json();
+
+        if (result.success) {
+          setFormData((prev) => ({ ...prev, profilePicture: result.url }));
+        } else {
+          alert("Erreur lors du téléchargement de l'image: " + (result.message || 'Erreur inconnue'));
+        }
+      } catch (error) {
+        alert("Erreur réseau : " + error.message);
+      } finally {
+        setIsLoading(false);
+      }
     }
-  }
-};
+  };
 
-const handleProfilePictureUrl = (e) => {
-  const { value } = e.target;
-  setFormData((prev) => ({ ...prev, profilePicture: value }));
-};
-
+  const handleProfilePictureUrl = (e) => {
+    const { value } = e.target;
+    setFormData((prev) => ({ ...prev, profilePicture: value }));
+  };
 
   // Skills handlers
   const addSkill = () => {
@@ -365,35 +381,47 @@ const handleProfilePictureUrl = (e) => {
     }));
   };
 
- const handleProjectImageChange = async (e) => {
- const file = e.target.files[0];
-  if (file) {
-    const formData = new FormData();
-    formData.append("image", file);
-
-    try {
-      const response = await fetch(
-        "https://pfestageai-profilepro-production.up.railway.app/UploadImage/upload-resume.php",  // URL publique Symfony ici
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
-
-      const result = await response.json();
-
-      if (result.success) {
-        setFormData((prev) => ({ ...prev, profilePicture: result.url }));
-      } else {
-        alert("Erreur lors du téléchargement de l'image: " + (result.message || ''));
+  const handleProjectImageChange = async (e, projectId) => {
+    const file = e.target.files[0];
+    if (file) {
+      // Vérification de la taille (max 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        alert("L'image ne doit pas dépasser 5MB");
+        return;
       }
-    } catch (error) {
-      alert("Erreur réseau : " + error.message);
+
+      // Vérification du type de fichier
+      const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+      if (!allowedTypes.includes(file.type)) {
+        alert("Type de fichier non autorisé. Formats acceptés : JPEG, PNG, GIF, WEBP");
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("image", file);
+
+      try {
+        setIsLoading(true);
+        const response = await fetch(
+          "https://pfestageai-profilepro-production.up.railway.app/UploadImage/upload-resume.php",  // URL publique Symfony ici
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
+
+        const result = await response.json();
+
+        if (result.success) {
+          setFormData((prev) => ({ ...prev, profilePicture: result.url }));
+        } else {
+          alert("Erreur lors du téléchargement de l'image: " + (result.message || ''));
+        }
+      } catch (error) {
+        alert("Erreur réseau : " + error.message);
+      }
     }
-  }
-
-};
-
+  };
 
   const removeProject = (id) => {
     setFormData((prev) => ({
@@ -1500,8 +1528,8 @@ const handleProfilePictureUrl = (e) => {
                         <Input
                           type="file"
                           accept="image/*"
-                          onChange={handleProjectImageChange}
-                          className="block w-full text-sm text-gray-500 file:mr-4 f file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 cursor-pointer"
+                          onChange={(e) => handleProjectImageChange(e, proj.id)}
+                          className="block w-full text-sm text-gray-500 file:mr-4 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 cursor-pointer"
                         />
                       </div>
                       {proj.image && (
