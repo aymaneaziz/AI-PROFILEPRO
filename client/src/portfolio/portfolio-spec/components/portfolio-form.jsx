@@ -373,7 +373,7 @@ const handleProfilePictureUrl = (e) => {
 
     try {
       const response = await fetch(
-        "https://https://pfestageai-profilepro-production.up.railway.app/UploadImage/upload-portfolio.php", // URL publique vers ton PHP
+        "https://https://pfestageai-profilepro-production.up.railway.app/UploadImage/upload-resume.php", // URL publique vers ton PHP
         {
           method: "POST",
           body: formData,
