@@ -38,66 +38,73 @@ export default function LandingPage() {
 
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h2 className="text-4xl font-extrabold text-gray-900 tracking-tight sm:text-5xl md:text-6xl">
-              <span className="block">Créez et gérez</span>
-              <span className="block text-indigo-600">
-                vos portfolios professionnels
-              </span>
-            </h2>
-            <p className="mt-3 max-w-md mx-auto text-base text-gray-500 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
-              Créez facilement plusieurs portfolios et CV professionnels
-              personnalisés pour différents objectifs. Présentez vos
-              compétences, expériences et projets de manière élégante et
-              professionnelle
-            </p>
-            <div className="mt-10 flex justify-center gap-4">
-              <Button
-                onClick={() => navigate("/portfolio")}
-                size="lg"
-                className="bg-indigo-600 hover:bg-indigo-700"
-              >
-                Créer mon Porfolio
-              </Button>
-              <Button
-                onClick={() => navigate("/dashboard")}
-                variant="outline"
-                size="lg"
-              >
-                Créer mon CV
-              </Button>
+        <section className="w-full py-16 md:py-24 lg:py-32">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+            <div className="text-center space-y-8">
+              <div className="space-y-4">
+                <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl md:text-5xl lg:text-6xl">
+                  <span className="block">Créez et gérez</span>
+                  <span className="block text-indigo-600">
+                    vos portfolios professionnels
+                  </span>
+                </h1>
+                <p className="mx-auto max-w-2xl text-base text-gray-500 sm:text-lg md:text-xl lg:max-w-4xl">
+                  Créez facilement plusieurs portfolios et CV professionnels
+                  personnalisés pour différents objectifs. Présentez vos
+                  compétences, expériences et projets de manière élégante et
+                  professionnelle
+                </p>
+              </div>
+              
+              <div className="flex flex-col sm:flex-row justify-center gap-4 pt-4">
+                <Button
+                  onClick={() => navigate("/portfolio")}
+                  size="lg"
+                  className="bg-indigo-600 hover:bg-indigo-700 text-base px-8 py-3"
+                >
+                  Créer mon Portfolio
+                </Button>
+                <Button
+                  onClick={() => navigate("/dashboard")}
+                  variant="outline"
+                  size="lg"
+                  className="text-base px-8 py-3"
+                >
+                  Créer mon CV
+                </Button>
+              </div>
             </div>
-          </div>
 
-          <div className="mt-20">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="bg-white p-6 rounded-lg shadow-md">
-                <h3 className="text-xl font-bold text-gray-900 mb-3">
-                  Créez plusieurs portfolios
-                </h3>
-                <p className="text-gray-600">
-                  Créez des portfolios et des CV différents pour chaque domaine
-                  d'expertise ou type de poste recherché.
-                </p>
-              </div>
-              <div className="bg-white p-6 rounded-lg shadow-md">
-                <h3 className="text-xl font-bold text-gray-900 mb-3">
-                  Personnalisez
-                </h3>
-                <p className="text-gray-600">
-                  Choisissez les couleurs qui correspondent à votre style
-                  professionnel
-                </p>
-              </div>
-              <div className="bg-white p-6 rounded-lg shadow-md">
-                <h3 className="text-xl font-bold text-gray-900 mb-3">
-                  Partagez facilement
-                </h3>
-                <p className="text-gray-600">
-                  Partagez vos portfolios avec des recruteurs ou sur vos réseaux
-                  sociaux en quelques clics.
-                </p>
+            {/* Feature Cards */}
+            <div className="mt-16 lg:mt-24">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+                <div className="bg-white p-6 lg:p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow">
+                  <h3 className="text-lg lg:text-xl font-bold text-gray-900 mb-3">
+                    Créez plusieurs portfolios
+                  </h3>
+                  <p className="text-gray-600 text-sm lg:text-base">
+                    Créez des portfolios et des CV différents pour chaque domaine
+                    d'expertise ou type de poste recherché.
+                  </p>
+                </div>
+                <div className="bg-white p-6 lg:p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow">
+                  <h3 className="text-lg lg:text-xl font-bold text-gray-900 mb-3">
+                    Personnalisez
+                  </h3>
+                  <p className="text-gray-600 text-sm lg:text-base">
+                    Choisissez les couleurs qui correspondent à votre style
+                    professionnel
+                  </p>
+                </div>
+                <div className="bg-white p-6 lg:p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow md:col-span-2 lg:col-span-1">
+                  <h3 className="text-lg lg:text-xl font-bold text-gray-900 mb-3">
+                    Partagez facilement
+                  </h3>
+                  <p className="text-gray-600 text-sm lg:text-base">
+                    Partagez vos portfolios avec des recruteurs ou sur vos réseaux
+                    sociaux en quelques clics.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -106,53 +113,52 @@ export default function LandingPage() {
         {/* Features Section */}
         <section
           id="fonctionnalites"
-          className="w-full py-12 md:py-24 lg:py-32 bg-muted/50"
+          className="w-full py-16 md:py-24 lg:py-32 bg-gray-50"
         >
-          <div className="container px-4 md:px-6">
-            <div className="flex flex-col items-center justify-center space-y-4 text-center">
-              <div className="space-y-2">
-                <div className="inline-block rounded-lg bg-primary px-3 py-1 text-sm text-primary-foreground">
-                  Fonctionnalités
-                </div>
-                <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
-                  Tout ce dont vous avez besoin pour réussir
-                </h2>
-                <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed">
-                  Notre plateforme offre des outils puissants pour créer des CV
-                  et portfolios qui vous aident à décrocher l'emploi de vos
-                  rêves.
-                </p>
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+            <div className="text-center space-y-4 mb-12 lg:mb-16">
+              <div className="inline-block rounded-lg bg-indigo-600 px-3 py-1 text-sm text-white">
+                Fonctionnalités
               </div>
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight text-gray-900">
+                Tout ce dont vous avez besoin pour réussir
+              </h2>
+              <p className="mx-auto max-w-3xl text-gray-600 text-base md:text-lg lg:text-xl">
+                Notre plateforme offre des outils puissants pour créer des CV
+                et portfolios qui vous aident à décrocher l'emploi de vos
+                rêves.
+              </p>
             </div>
-            <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 md:grid-cols-2 lg:grid-cols-3 lg:gap-12">
-              <div className="flex flex-col items-center space-y-4 rounded-lg border p-6 shadow-sm">
-                <div className="rounded-full bg-primary/10 p-3">
-                  <Sparkles className="h-6 w-6 text-primary" />
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+              <div className="flex flex-col items-center text-center space-y-4 bg-white rounded-xl border p-6 lg:p-8 shadow-sm hover:shadow-md transition-shadow">
+                <div className="rounded-full bg-indigo-100 p-3">
+                  <Sparkles className="h-6 w-6 text-indigo-600" />
                 </div>
-                <h3 className="text-xl font-bold">IA Avancée</h3>
-                <p className="text-center text-muted-foreground">
+                <h3 className="text-lg lg:text-xl font-bold text-gray-900">IA Avancée</h3>
+                <p className="text-gray-600 text-sm lg:text-base">
                   Notre technologie d'IA analyse votre expérience et suggère des
                   formulations optimales pour votre profil.
                 </p>
               </div>
 
-              <div className="flex flex-col items-center space-y-4 rounded-lg border p-6 shadow-sm">
-                <div className="rounded-full bg-primary/10 p-3">
-                  <PenTool className="h-6 w-6 text-primary" />
+              <div className="flex flex-col items-center text-center space-y-4 bg-white rounded-xl border p-6 lg:p-8 shadow-sm hover:shadow-md transition-shadow">
+                <div className="rounded-full bg-indigo-100 p-3">
+                  <PenTool className="h-6 w-6 text-indigo-600" />
                 </div>
-                <h3 className="text-xl font-bold">Personnalisation Totale</h3>
-                <p className="text-center text-muted-foreground">
+                <h3 className="text-lg lg:text-xl font-bold text-gray-900">Personnalisation Totale</h3>
+                <p className="text-gray-600 text-sm lg:text-base">
                   Adaptez chaque aspect de votre CV ou portfolio pour refléter
                   votre style personnel et professionnel.
                 </p>
               </div>
 
-              <div className="flex flex-col items-center space-y-4 rounded-lg border p-6 shadow-sm">
-                <div className="rounded-full bg-primary/10 p-3">
-                  <Globe className="h-6 w-6 text-primary" />
+              <div className="flex flex-col items-center text-center space-y-4 bg-white rounded-xl border p-6 lg:p-8 shadow-sm hover:shadow-md transition-shadow md:col-span-2 lg:col-span-1">
+                <div className="rounded-full bg-indigo-100 p-3">
+                  <Globe className="h-6 w-6 text-indigo-600" />
                 </div>
-                <h3 className="text-xl font-bold">Portfolio en Ligne</h3>
-                <p className="text-center text-muted-foreground">
+                <h3 className="text-lg lg:text-xl font-bold text-gray-900">Portfolio en Ligne</h3>
+                <p className="text-gray-600 text-sm lg:text-base">
                   Créez un portfolio web professionnel pour présenter vos
                   projets et compétences aux recruteurs.
                 </p>
@@ -162,129 +168,133 @@ export default function LandingPage() {
         </section>
 
         {/* Examples Section */}
-        <section id="exemples" className="w-full py-12 md:py-24 lg:py-32 ">
-          <div className="container px-4 md:px-6">
-            <div className="flex flex-col items-center justify-center space-y-4 text-center">
-              <div className="space-y-2">
-                <div className="inline-block rounded-lg bg-primary px-3 py-1 text-sm text-primary-foreground">
-                  Recherche de Talents
-                </div>
-                <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
-                  Trouvez les profils parfaits pour votre entreprise
-                </h2>
-                <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed">
-                  Ce service vous aide à identifier et recruter les meilleurs
-                  candidats selon vos critères
-                </p>
+        <section id="exemples" className="w-full py-16 md:py-24 lg:py-32">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+            <div className="text-center space-y-4 mb-12 lg:mb-16">
+              <div className="inline-block rounded-lg bg-indigo-600 px-3 py-1 text-sm text-white">
+                Recherche de Talents
               </div>
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight text-gray-900">
+                Trouvez les profils parfaits pour votre entreprise
+              </h2>
+              <p className="mx-auto max-w-3xl text-gray-600 text-base md:text-lg lg:text-xl">
+                Ce service vous aide à identifier et recruter les meilleurs
+                candidats selon vos critères
+              </p>
             </div>
-            <div className="mx-auto grid max-w-5xl gap-6 py-12 md:grid-cols-2 lg:grid-cols-3">
-              <div className="group relative overflow-hidden rounded-lg border shadow-sm cursor-pointer">
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+              <div className="group relative overflow-hidden rounded-xl border shadow-sm cursor-pointer hover:shadow-lg transition-all">
                 <img
                   src="/resume1.jpeg"
                   alt="Profil Développeur"
-                  className="aspect-[3/4] object-cover transition-transform group-hover:scale-105"
+                  className="aspect-[3/4] w-full object-cover transition-transform group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/0 to-background/0 flex items-end p-6">
-                  <div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-4 lg:p-6">
+                  <div className="text-white">
                     <h3 className="text-lg font-bold">Profils Techniques</h3>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-sm opacity-90">
                       Développeurs, ingénieurs et experts IT
                     </p>
                   </div>
                 </div>
               </div>
-              <div className="group relative overflow-hidden rounded-lg border shadow-sm cursor-pointer">
+              
+              <div className="group relative overflow-hidden rounded-xl border shadow-sm cursor-pointer hover:shadow-lg transition-all">
                 <img
                   src="/resume2.jpeg"
                   alt="Profil Commercial"
-                  className="aspect-[3/4] object-cover transition-transform group-hover:scale-105"
+                  className="aspect-[3/4] w-full object-cover transition-transform group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/0 to-background/0 flex items-end p-6">
-                  <div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-4 lg:p-6">
+                  <div className="text-white">
                     <h3 className="text-lg font-bold">Profils Commerciaux</h3>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-sm opacity-90">
                       Commerciaux, chargés de clientèle et business developers
                     </p>
                   </div>
                 </div>
               </div>
-              <div className="group relative overflow-hidden rounded-lg border shadow-sm cursor-pointer">
+              
+              <div className="group relative overflow-hidden rounded-xl border shadow-sm cursor-pointer hover:shadow-lg transition-all md:col-span-2 lg:col-span-1">
                 <img
                   src="/port1.jpeg"
                   alt="Profil Direction"
-                  className="aspect-[3/4] object-cover transition-transform group-hover:scale-105"
+                  className="aspect-[3/4] w-full object-cover transition-transform group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/0 to-background/0 flex items-end p-6">
-                  <div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-4 lg:p-6">
+                  <div className="text-white">
                     <h3 className="text-lg font-bold">Profils Direction</h3>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-sm opacity-90">
                       Managers, directeurs et cadres expérimentés
                     </p>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="flex justify-center mt-8">
+            
+            <div className="flex justify-center mt-8 lg:mt-12">
               <Link to={"/public-resumes"}>
-                <button className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring">
+                <Button size="lg" className="bg-indigo-600 hover:bg-indigo-700 px-8">
                   Rechercher des profils
-                </button>
+                </Button>
               </Link>
             </div>
           </div>
         </section>
-        {/* Contact */}
+
+        {/* Contact Section */}
         <section
           id="contact"
-          className="w-full py-16 px-6 border-t bg-muted/50"
+          className="w-full py-16 md:py-24 bg-gray-50"
         >
-          <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-5xl font-bold mb-4">
-                Prêt à booster votre carrière ?
-              </h2>
-              <p className="text-gray-600 text-lg">
-                Créez votre CV ou portfolio professionnel dès aujourd'hui avec
-                notre outil simple et puissant.
-              </p>
-              <div className="mt-6 flex gap-4">
-                <div className="flex flex-col gap-2 min-[400px]:flex-row">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+              <div className="space-y-6">
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
+                  Prêt à booster votre carrière ?
+                </h2>
+                <p className="text-gray-600 text-base md:text-lg">
+                  Créez votre CV ou portfolio professionnel dès aujourd'hui avec
+                  notre outil simple et puissant.
+                </p>
+                <div>
                   <Button
                     size="lg"
-                    className="px-8"
+                    className="bg-indigo-600 hover:bg-indigo-700 px-8 py-3 text-base"
                     onClick={() => navigate("/dashboard")}
                   >
                     Créer mon CV gratuitement
                   </Button>
                 </div>
               </div>
-            </div>
 
-            <div className=" p-6 rounded-lg shadow-md bg-white">
-              <Contact />
+              <div className="bg-white p-6 lg:p-8 rounded-xl shadow-md">
+                <Contact />
+              </div>
             </div>
           </div>
         </section>
       </main>
 
       {/* Footer */}
-      <footer className="w-full border-t bg-background py-12">
-        <div className="container px-4 md:px-6">
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-            <div className="space-y-4">
+      <footer className="w-full border-t bg-white py-12 lg:py-16">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+          <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="space-y-4 sm:col-span-2 lg:col-span-1">
               <div className="flex items-center gap-2">
-                <ZapIcon className="h-6 w-6 text-primary" />
-                <span className="text-xl font-bold">ProfilPro</span>
+                <ZapIcon className="h-6 w-6 text-indigo-600" />
+                <span className="text-xl font-bold text-gray-900">ProfilPro</span>
               </div>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-gray-600 max-w-xs">
                 Créez des CV et portfolios qui vous démarquent et boostent votre
                 carrière.
               </p>
               <div className="flex gap-4">
                 <Link
                   to="#"
-                  className="text-muted-foreground hover:text-foreground"
+                  className="text-gray-400 hover:text-gray-600 transition-colors"
+                  aria-label="Facebook"
                 >
                   <svg
                     className="h-5 w-5"
@@ -298,11 +308,11 @@ export default function LandingPage() {
                       clipRule="evenodd"
                     />
                   </svg>
-                  <span className="sr-only">Facebook</span>
                 </Link>
                 <Link
                   to="#"
-                  className="text-muted-foreground hover:text-foreground"
+                  className="text-gray-400 hover:text-gray-600 transition-colors"
+                  aria-label="Twitter"
                 >
                   <svg
                     className="h-5 w-5"
@@ -312,11 +322,11 @@ export default function LandingPage() {
                   >
                     <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
                   </svg>
-                  <span className="sr-only">Twitter</span>
                 </Link>
                 <Link
                   to="#"
-                  className="text-muted-foreground hover:text-foreground"
+                  className="text-gray-400 hover:text-gray-600 transition-colors"
+                  aria-label="Instagram"
                 >
                   <svg
                     className="h-5 w-5"
@@ -330,11 +340,11 @@ export default function LandingPage() {
                       clipRule="evenodd"
                     />
                   </svg>
-                  <span className="sr-only">Instagram</span>
                 </Link>
                 <Link
                   to="#"
-                  className="text-muted-foreground hover:text-foreground"
+                  className="text-gray-400 hover:text-gray-600 transition-colors"
+                  aria-label="GitHub"
                 >
                   <svg
                     className="h-5 w-5"
@@ -348,17 +358,17 @@ export default function LandingPage() {
                       clipRule="evenodd"
                     />
                   </svg>
-                  <span className="sr-only">GitHub</span>
                 </Link>
               </div>
             </div>
+            
             <div className="space-y-4">
-              <h3 className="text-sm font-medium">Produit</h3>
-              <ul className="space-y-2 text-sm">
+              <h3 className="text-sm font-semibold text-gray-900 uppercase tracking-wider">Produit</h3>
+              <ul className="space-y-3 text-sm">
                 <li>
                   <Link
                     to="#"
-                    className="text-muted-foreground hover:text-foreground"
+                    className="text-gray-600 hover:text-gray-900 transition-colors"
                   >
                     Fonctionnalités
                   </Link>
@@ -366,7 +376,7 @@ export default function LandingPage() {
                 <li>
                   <Link
                     to="#"
-                    className="text-muted-foreground hover:text-foreground"
+                    className="text-gray-600 hover:text-gray-900 transition-colors"
                   >
                     Modèles
                   </Link>
@@ -374,7 +384,7 @@ export default function LandingPage() {
                 <li>
                   <Link
                     to="#"
-                    className="text-muted-foreground hover:text-foreground"
+                    className="text-gray-600 hover:text-gray-900 transition-colors"
                   >
                     Tarifs
                   </Link>
@@ -382,20 +392,21 @@ export default function LandingPage() {
                 <li>
                   <Link
                     to="#"
-                    className="text-muted-foreground hover:text-foreground"
+                    className="text-gray-600 hover:text-gray-900 transition-colors"
                   >
                     FAQ
                   </Link>
                 </li>
               </ul>
             </div>
+            
             <div className="space-y-4">
-              <h3 className="text-sm font-medium">Ressources</h3>
-              <ul className="space-y-2 text-sm">
+              <h3 className="text-sm font-semibold text-gray-900 uppercase tracking-wider">Ressources</h3>
+              <ul className="space-y-3 text-sm">
                 <li>
                   <Link
                     to="#"
-                    className="text-muted-foreground hover:text-foreground"
+                    className="text-gray-600 hover:text-gray-900 transition-colors"
                   >
                     Blog
                   </Link>
@@ -403,7 +414,7 @@ export default function LandingPage() {
                 <li>
                   <Link
                     to="#"
-                    className="text-muted-foreground hover:text-foreground"
+                    className="text-gray-600 hover:text-gray-900 transition-colors"
                   >
                     Conseils CV
                   </Link>
@@ -411,7 +422,7 @@ export default function LandingPage() {
                 <li>
                   <Link
                     to="#"
-                    className="text-muted-foreground hover:text-foreground"
+                    className="text-gray-600 hover:text-gray-900 transition-colors"
                   >
                     Tendances du recrutement
                   </Link>
@@ -419,20 +430,21 @@ export default function LandingPage() {
                 <li>
                   <Link
                     to="#"
-                    className="text-muted-foreground hover:text-foreground"
+                    className="text-gray-600 hover:text-gray-900 transition-colors"
                   >
                     Tutoriels
                   </Link>
                 </li>
               </ul>
             </div>
+            
             <div className="space-y-4">
-              <h3 className="text-sm font-medium">Entreprise</h3>
-              <ul className="space-y-2 text-sm">
+              <h3 className="text-sm font-semibold text-gray-900 uppercase tracking-wider">Entreprise</h3>
+              <ul className="space-y-3 text-sm">
                 <li>
                   <Link
                     to="#"
-                    className="text-muted-foreground hover:text-foreground"
+                    className="text-gray-600 hover:text-gray-900 transition-colors"
                   >
                     À propos
                   </Link>
@@ -440,7 +452,7 @@ export default function LandingPage() {
                 <li>
                   <Link
                     to="#"
-                    className="text-muted-foreground hover:text-foreground"
+                    className="text-gray-600 hover:text-gray-900 transition-colors"
                   >
                     Carrières
                   </Link>
@@ -448,7 +460,7 @@ export default function LandingPage() {
                 <li>
                   <Link
                     to="#"
-                    className="text-muted-foreground hover:text-foreground"
+                    className="text-gray-600 hover:text-gray-900 transition-colors"
                   >
                     Contact
                   </Link>
@@ -456,7 +468,7 @@ export default function LandingPage() {
                 <li>
                   <Link
                     to="#"
-                    className="text-muted-foreground hover:text-foreground"
+                    className="text-gray-600 hover:text-gray-900 transition-colors"
                   >
                     Partenaires
                   </Link>
