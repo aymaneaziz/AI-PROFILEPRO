@@ -146,15 +146,15 @@ export default function PortfolioForm({ onSubmit, initialData }) {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
+const handleProfilePictureChange = async (e) => { 
+  const file = e.target.files[0];
+  if (file) {
+    const formData = new FormData();
+    formData.append("image", file);
 
-  const handleProfilePictureChange = async (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const formData = new FormData();
-      formData.append("image", file);
-
+    try {
       const response = await fetch(
-        "http://localhost/DEVweb/PFE_STAGE_PROFILEPRO//ProfilePro/public/UploadImage/upload-resume.php",
+        "https://pfestageai-profilepro-production.up.railway.app/UploadImage/upload-resume.php",  // URL publique Symfony ici
         {
           method: "POST",
           body: formData,
@@ -166,14 +166,19 @@ export default function PortfolioForm({ onSubmit, initialData }) {
       if (result.success) {
         setFormData((prev) => ({ ...prev, profilePicture: result.url }));
       } else {
-        alert("Erreur lors du téléchargement de l'image");
+        alert("Erreur lors du téléchargement de l'image: " + (result.message || ''));
       }
+    } catch (error) {
+      alert("Erreur réseau : " + error.message);
     }
-  };
-  const handleProfilePictureUrl = (e) => {
-    const { value } = e.target;
-    setFormData((prev) => ({ ...prev, profilePicture: value }));
-  };
+  }
+};
+
+const handleProfilePictureUrl = (e) => {
+  const { value } = e.target;
+  setFormData((prev) => ({ ...prev, profilePicture: value }));
+};
+
 
   // Skills handlers
   const addSkill = () => {
