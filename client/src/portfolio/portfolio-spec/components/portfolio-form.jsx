@@ -1542,10 +1542,10 @@ export default function PortfolioForm({ onSubmit, initialData }) {
                       {proj.image && (
                         <div className="mt-2">
                           <img
-                            src={proj.image}
-                            alt={proj.title || "Aperçu du projet"}
-                            className="h-20 w-full object-cover rounded border border-gray-200"
-                          />
+                             src={proj.image}
+                             alt={proj.title || "Aperçu du projet"}
+                             className="h-20 object-cover rounded border border-gray-200"
+                           />
                         </div>
                       )}
                     </div>
