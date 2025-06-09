@@ -365,14 +365,15 @@ const handleProfilePictureUrl = (e) => {
     }));
   };
 
-  const handleProjectImageChange = async (id, e) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const formData = new FormData();
-      formData.append("image", file);
+ const handleProjectImageChange = async (id, e) => {
+  const file = e.target.files?.[0];
+  if (file) {
+    const formData = new FormData();
+    formData.append("image", file);
 
+    try {
       const response = await fetch(
-        "http://localhost/DEVweb/PFE_STAGE_PROFILEPRO/ProfilePro/public/UploadImage/upload-portfolio.php",
+        "https://tondomaine.com/UploadImage/upload-portfolio.php", // URL publique vers ton PHP
         {
           method: "POST",
           body: formData,
@@ -382,12 +383,16 @@ const handleProfilePictureUrl = (e) => {
       const result = await response.json();
 
       if (result.success) {
-        updateProject(id, "image", result.url); // Stocke l'URL reçue dans ton projet
+        updateProject(id, "image", result.url); // URL Imgur ici
       } else {
-        alert("Erreur lors du téléchargement de l'image du projet");
+        alert("Erreur lors du téléchargement : " + (result.message || ""));
       }
+    } catch (error) {
+      alert("Erreur réseau : " + error.message);
     }
-  };
+  }
+};
+
 
   const removeProject = (id) => {
     setFormData((prev) => ({
