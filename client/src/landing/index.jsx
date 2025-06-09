@@ -267,96 +267,82 @@ export default function LandingPage() {
       </main>
 
       {/* Footer */}
-      <footer className="w-full border-t bg-background py-12">
-      <div className="container px-4 md:px-6">
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-          {/* Section ProfilPro + Logo Seomaniak */}
-          <div className="space-y-4">
-            <div className="flex items-center gap-4">
-              <div className="flex items-center gap-2">
-                <ZapIcon className="h-6 w-6 text-primary" />
-                <span className="text-xl font-bold">ProfilPro</span>
-              </div>
-              <img
-                src="/Seomaniak2025.png"
-                alt="Logo Seomaniak Oujda"
-                className="h-10 w-auto"
-              />
-              <span className="text-lg font-semibold">Seomaniak Oujda</span>
-            </div>
-            <p className="text-sm text-muted-foreground">
-              Créez des CV et portfolios qui vous démarquent et boostent votre
-              carrière.
+      <footer className="bg-gray-900 text-gray-300 py-12">
+      <div className="container mx-auto px-6 md:px-12">
+        <div className="flex flex-col md:flex-row justify-between gap-10 md:gap-20">
+
+          {/* Logo & Description */}
+          <div className="md:w-1/4">
+            <img
+              src="/Seomaniak2025.png"
+              alt="Seomaniak Oujda Logo"
+              className="mb-4 w-36"
+            />
+            <p className="text-gray-400 leading-relaxed">
+              Seomaniak Oujda, votre partenaire digital pour un avenir numérique innovant.
             </p>
-            <div className="flex gap-4">
-              {/* Exemple de liens réseaux sociaux */}
-              <Link
-                to="https://www.facebook.com/seomaniak"
+
+            {/* Réseaux sociaux */}
+            <div className="flex space-x-5 mt-6">
+              <a
+                href="https://www.facebook.com/seomaniakoujda"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-foreground"
+                aria-label="Facebook"
+                className="hover:text-blue-600 transition-colors"
               >
+                {/* Facebook SVG */}
                 <svg
-                  className="h-5 w-5"
-                  fill="currentColor"
+                  className="w-6 h-6 fill-current"
+                  xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
-                  aria-hidden="true"
                 >
-                  <path
-                    fillRule="evenodd"
-                    d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"
-                    clipRule="evenodd"
-                  />
+                  <path d="M22.675 0h-21.35C.597 0 0 .593 0 1.326v21.348C0 23.406.597 24 1.325 24H12.82v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.894-4.788 4.659-4.788 1.325 0 2.464.099 2.796.143v3.24l-1.918.001c-1.504 0-1.796.715-1.796 1.763v2.31h3.59l-.467 3.622h-3.123V24h6.116c.728 0 1.325-.594 1.325-1.326V1.326C24 .593 23.403 0 22.675 0z" />
                 </svg>
-                <span className="sr-only">Facebook</span>
-              </Link>
-              <Link
-                to="https://twitter.com/seomaniak"
+              </a>
+              <a
+                href="https://twitter.com/seomaniakoujda"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-foreground"
+                aria-label="Twitter"
+                className="hover:text-blue-400 transition-colors"
               >
+                {/* Twitter SVG */}
                 <svg
-                  className="h-5 w-5"
-                  fill="currentColor"
+                  className="w-6 h-6 fill-current"
+                  xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
-                  aria-hidden="true"
                 >
-                  <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
+                  <path d="M24 4.557a9.83 9.83 0 01-2.828.775 4.932 4.932 0 002.165-2.724 9.864 9.864 0 01-3.127 1.195 4.916 4.916 0 00-8.374 4.482A13.94 13.94 0 011.671 3.149a4.916 4.916 0 001.523 6.556 4.897 4.897 0 01-2.228-.616c-.054 2.281 1.581 4.415 3.949 4.89a4.935 4.935 0 01-2.224.084 4.919 4.919 0 004.588 3.417A9.867 9.867 0 010 21.54a13.9 13.9 0 007.548 2.212c9.058 0 14.009-7.512 14.009-14.01 0-.213-.004-.425-.014-.636A10.012 10.012 0 0024 4.557z" />
                 </svg>
-                <span className="sr-only">Twitter</span>
-              </Link>
-              <Link
-                to="https://www.instagram.com/seomaniak"
+              </a>
+              <a
+                href="https://www.linkedin.com/company/seomaniakoujda"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-foreground"
+                aria-label="LinkedIn"
+                className="hover:text-blue-700 transition-colors"
               >
+                {/* LinkedIn SVG */}
                 <svg
-                  className="h-5 w-5"
-                  fill="currentColor"
+                  className="w-6 h-6 fill-current"
+                  xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
-                  aria-hidden="true"
                 >
-                  <path
-                    fillRule="evenodd"
-                    d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 100 10.27 5.135 5.135 0 000-10.27zm0 1.802a3.333 3.333 0 110 6.666 3.333 3.333 0 010-6.666zm5.404-2.241a1.2 1.2 0 11-2.401 0 1.2 1.2 0 012.4 0z"
-                    clipRule="evenodd"
-                  />
+                  <path d="M19 0h-14c-2.762 0-5 2.238-5 5v14c0 2.762 2.238 5 5 5h14c2.763 0 5-2.238 5-5v-14c0-2.762-2.237-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.268c-.966 0-1.75-.787-1.75-1.758 0-.97.784-1.757 1.75-1.757s1.75.786 1.75 1.757c0 .971-.784 1.758-1.75 1.758zm13.5 11.268h-3v-5.604c0-1.337-.026-3.064-1.867-3.064-1.867 0-2.154 1.459-2.154 2.963v5.705h-3v-10h2.879v1.367h.041c.401-.758 1.379-1.556 2.838-1.556 3.034 0 3.596 2.  .238 3.596 5.467v5.722z" />
                 </svg>
-                <span className="sr-only">Instagram</span>
-              </Link>
+              </a>
             </div>
           </div>
 
-          {/* Section Liens utiles */}
-          <div>
-            <h3 className="mb-4 text-lg font-semibold">Liens utiles</h3>
+          {/* Liens utiles */}
+          <div className="md:w-1/5">
+            <h3 className="text-xl font-semibold mb-4 text-white">Liens utiles</h3>
             <ul className="space-y-2">
               <li>
                 <Link
                   to="/about"
-                  className="text-muted-foreground hover:text-foreground"
+                  className="hover:text-white transition-colors"
                 >
                   À propos
                 </Link>
@@ -364,7 +350,7 @@ export default function LandingPage() {
               <li>
                 <Link
                   to="/contact"
-                  className="text-muted-foreground hover:text-foreground"
+                  className="hover:text-white transition-colors"
                 >
                   Contact
                 </Link>
@@ -372,7 +358,7 @@ export default function LandingPage() {
               <li>
                 <Link
                   to="/pricing"
-                  className="text-muted-foreground hover:text-foreground"
+                  className="hover:text-white transition-colors"
                 >
                   Tarifs
                 </Link>
@@ -380,7 +366,7 @@ export default function LandingPage() {
               <li>
                 <Link
                   to="/blog"
-                  className="text-muted-foreground hover:text-foreground"
+                  className="hover:text-white transition-colors"
                 >
                   Blog
                 </Link>
@@ -388,14 +374,14 @@ export default function LandingPage() {
             </ul>
           </div>
 
-          {/* Section Politique */}
-          <div>
-            <h3 className="mb-4 text-lg font-semibold">Politique</h3>
+          {/* Politique */}
+          <div className="md:w-1/5">
+            <h3 className="text-xl font-semibold mb-4 text-white">Politique</h3>
             <ul className="space-y-2">
               <li>
                 <Link
                   to="/terms"
-                  className="text-muted-foreground hover:text-foreground"
+                  className="hover:text-white transition-colors"
                 >
                   Conditions d'utilisation
                 </Link>
@@ -403,7 +389,7 @@ export default function LandingPage() {
               <li>
                 <Link
                   to="/privacy"
-                  className="text-muted-foreground hover:text-foreground"
+                  className="hover:text-white transition-colors"
                 >
                   Politique de confidentialité
                 </Link>
@@ -411,7 +397,7 @@ export default function LandingPage() {
               <li>
                 <Link
                   to="/cookies"
-                  className="text-muted-foreground hover:text-foreground"
+                  className="hover:text-white transition-colors"
                 >
                   Politique des cookies
                 </Link>
@@ -419,14 +405,14 @@ export default function LandingPage() {
             </ul>
           </div>
 
-          {/* Section Support */}
-          <div>
-            <h3 className="mb-4 text-lg font-semibold">Support</h3>
+          {/* Support */}
+          <div className="md:w-1/5">
+            <h3 className="text-xl font-semibold mb-4 text-white">Support</h3>
             <ul className="space-y-2">
               <li>
                 <Link
                   to="/faq"
-                  className="text-muted-foreground hover:text-foreground"
+                  className="hover:text-white transition-colors"
                 >
                   FAQ
                 </Link>
@@ -434,7 +420,7 @@ export default function LandingPage() {
               <li>
                 <Link
                   to="/help"
-                  className="text-muted-foreground hover:text-foreground"
+                  className="hover:text-white transition-colors"
                 >
                   Aide
                 </Link>
@@ -442,7 +428,7 @@ export default function LandingPage() {
               <li>
                 <Link
                   to="/support"
-                  className="text-muted-foreground hover:text-foreground"
+                  className="hover:text-white transition-colors"
                 >
                   Contact support
                 </Link>
@@ -452,7 +438,7 @@ export default function LandingPage() {
         </div>
 
         {/* Bas du footer */}
-        <div className="mt-12 border-t pt-6 text-center text-sm text-muted-foreground">
+        <div className="mt-12 border-t border-gray-700 pt-6 text-center text-sm text-gray-500">
           &copy; {new Date().getFullYear()} Seomaniak Oujda. Tous droits réservés.
         </div>
       </div>

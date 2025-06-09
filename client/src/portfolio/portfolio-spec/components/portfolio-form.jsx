@@ -366,14 +366,14 @@ const handleProfilePictureUrl = (e) => {
   };
 
  const handleProjectImageChange = async (id, e) => {
-  const file = e.target.files?.[0];
+ const file = e.target.files[0];
   if (file) {
     const formData = new FormData();
     formData.append("image", file);
 
     try {
       const response = await fetch(
-        "https://https://pfestageai-profilepro-production.up.railway.app/UploadImage/upload-resume.php", // URL publique vers ton PHP
+        "https://pfestageai-profilepro-production.up.railway.app/UploadImage/upload-resume.php",  // URL publique Symfony ici
         {
           method: "POST",
           body: formData,
@@ -383,14 +383,15 @@ const handleProfilePictureUrl = (e) => {
       const result = await response.json();
 
       if (result.success) {
-        updateProject(id, "image", result.url); // URL Imgur ici
+        setFormData((prev) => ({ ...prev, profilePicture: result.url }));
       } else {
-        alert("Erreur lors du téléchargement : " + (result.message || ""));
+        alert("Erreur lors du téléchargement de l'image: " + (result.message || ''));
       }
     } catch (error) {
       alert("Erreur réseau : " + error.message);
     }
   }
+
 };
 
 
