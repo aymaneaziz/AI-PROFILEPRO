@@ -19,7 +19,7 @@ import {
   ZapIcon,
 } from "lucide-react";
 import { GitHubIcon, InstagramIcon, LinkedInIcon, TwitterIcon, FacebookIcon } from 'lucide-react';
-import LogoSeomaniak from './public/Seomaniak2025.png';
+
 import { Link, useNavigate } from "react-router-dom";
 import Contact from "@/components/contact/Contact";
 
