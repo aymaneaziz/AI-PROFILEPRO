@@ -62,18 +62,7 @@ const router = createBrowserRouter([
     path: "/auth/sign-up",
     element: <SignUpPage />,
   },
-  {
-    path: "/pages/:resumeId/view",
-    element: <ResumeView />,
-  },
-  {
-    path: "/my-portfolio/:portfolioId/view",
-    element: <ViewPortfolio />,
-  },
-  {
-    path: "/portfolio",
-    element: <Portfoliospec />,
-  },
+
   {
     element: <App />,
     children: [
