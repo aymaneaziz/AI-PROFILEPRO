@@ -199,10 +199,10 @@ class AdminResumeController extends AbstractController
     }
 
     #[Route('/{id}/education/{educationId}/delete', name: 'admin_resume_education_delete', methods: ['POST'])]
-    public function deleteEducation(Request $request, UserResume $resume, Education $education): Response
+    public function deleteEducation(Request $request, UserResume $resume, Education $educationId): Response
     {
-        if ($this->isCsrfTokenValid('delete_education'.$education->getId(), $request->request->get('_token'))) {
-            $this->entityManager->remove($education);
+        if ($this->isCsrfTokenValid('delete_education'.$educationId->getId(), $request->request->get('_token'))) {
+            $this->entityManager->remove($educationId);
             $this->entityManager->flush();
             $this->addFlash('success', 'Formation supprimée avec succès.');
         }
