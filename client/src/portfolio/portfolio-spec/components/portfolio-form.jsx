@@ -169,7 +169,7 @@ export default function PortfolioForm({ onSubmit, initialData }) {
       try {
         setIsLoading(true);
         const response = await fetch(
-          "https://pfestageai-profilepro-production.up.railway.app/UploadImage/upload-resume.php",
+          "https://ai-profilepro-production.up.railway.app/UploadImage/upload-resume.php",
           {
             method: "POST",
             body: formData,
@@ -403,7 +403,7 @@ export default function PortfolioForm({ onSubmit, initialData }) {
       try {
         setIsLoading(true);
         const response = await fetch(
-          "https://pfestageai-profilepro-production.up.railway.app/UploadImage/upload-portfolio.php",
+          "https://ai-profilepro-production.up.railway.app/UploadImage/upload-portfolio.php",
           {
             method: "POST",
             body: formData,
